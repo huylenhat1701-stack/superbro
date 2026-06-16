@@ -14,29 +14,32 @@
 <body>
 
 <!-- ═══════════════════════════════ NAVBAR ═══════════════════════════════ -->
-<nav id="navbar">
-  <div class="nav-brand">
-    <div class="logo-icon"><i class="ph-bold ph-globe-hemisphere-west"></i></div>
-    <span>TravelSuite</span>
+<nav id="navbar" class="glass spotlight">
+  <div class="nav-brand" style="display: flex; align-items: center; gap: 8px; padding-left: 12px">
+    <div class="logo-icon" style="display: flex; align-items: center; justify-content: center; width:32px; height:32px; border-radius:10px; font-size:16px; background: var(--primary); color: white;">
+      <i class="ph-bold ph-globe-hemisphere-west"></i>
+    </div>
+    <span style="font-size: 1.1rem; font-weight: 800">TravelSuite</span>
   </div>
 
-  <div class="nav-links">
+  <div class="nav-links" style="gap: 4px">
     <a href="#" data-page="home" id="nav-home" class="active">Home</a>
     <a href="#" data-page="search" id="nav-search">Explore</a>
     <button id="nav-dashboard" class="hide-mobile" style="display:none">Dashboard</button>
-
-    <!-- Logged-out state -->
-    <div id="nav-auth" style="display:flex;gap:8px">
-      <button id="nav-login" class="btn-primary-sm">Login</button>
-      <button id="nav-register" class="hide-mobile">Register</button>
+    
+    <div id="nav-auth" style="display:flex;gap:4px">
+      <button id="nav-login" style="font-weight:700; color:var(--primary-light)">Login</button>
+      <button id="nav-register" class="btn-island" style="padding: 6px 6px 6px 16px; font-size:0.8rem">
+        Join
+        <div class="icon-circle" style="width:24px; height:24px"><i class="ph ph-plus"></i></div>
+      </button>
     </div>
 
-    <!-- Logged-in state -->
-    <div id="nav-user" style="display:none" class="nav-user-info">
-      <div class="nav-avatar" id="nav-avatar">U</div>
-      <span class="nav-username" id="nav-username">User</span>
-      <span class="nav-role-badge" id="nav-role-badge">user</span>
-      <button id="nav-logout" class="btn btn-ghost btn-sm">Logout</button>
+    <div id="nav-user" style="display:none; align-items:center; gap:8px">
+      <div class="nav-avatar" id="nav-avatar" style="width:32px; height:32px; font-size:14px; border-radius:50%; background:var(--primary); color:white; display:flex; align-items:center; justify-content:center">U</div>
+      <span class="nav-username" id="nav-username" style="display:none">User</span>
+      <span class="nav-role-badge" id="nav-role-badge" style="display:none">user</span>
+      <button id="nav-logout" style="font-size:0.8rem; opacity:0.6; margin-right:12px">Logout</button>
     </div>
   </div>
 </nav>
@@ -51,107 +54,158 @@
       <div class="orb orb-3"></div>
     </div>
     <div class="container">
-      <div class="hero-content">
-        <div class="hero-badge">Your Ultimate Travel Companion</div>
-        <h1 class="hero-title">
+      <div class="hero-content reveal-up">
+        <div class="micro-badge">Expert Curated Exploration</div>
+        <h1 class="display-h1">
           Discover the World's<br>
           <span class="gradient-text">Hidden Gems</span>
         </h1>
-        <p class="hero-subtitle">
+        <p class="hero-subtitle" style="margin-top: 32px">
           Explore curated destinations from expert guides. Find breathtaking places,
           stunning photos, and authentic reviews from fellow travelers.
         </p>
 
-        <div class="hero-search">
-          <input type="text" id="hero-search-input" placeholder="Search destinations, cities, attractions..." aria-label="Search places">
-          <select id="hero-category-select" aria-label="Filter by category">
-            <option value="">All Categories</option>
-            <option>Heritage</option>
-            <option>Nature</option>
-            <option>Adventure</option>
-            <option>Beach</option>
-            <option>City</option>
-            <option>Mountain</option>
-            <option>Food</option>
-            <option>Culture</option>
-          </select>
-          <button class="btn-search" id="btn-hero-search">🔍 Search</button>
+        <div class="bezel" style="max-width: 650px; margin-top: 48px">
+          <div class="bezel-core">
+            <div class="hero-search" style="border:none; box-shadow:none; background:transparent">
+              <input type="text" id="hero-search-input" placeholder="Search destinations..." aria-label="Search places">
+              <select id="hero-category-select" class="hide-mobile" aria-label="Filter by category" style="border:none; background:rgba(255,255,255,0.05)">
+                <option value="">All Categories</option>
+                <option>Heritage</option>
+                <option>Nature</option>
+                <option>Adventure</option>
+                <option>Beach</option>
+              </select>
+              <button class="btn-island" id="btn-hero-search">
+                Search
+                <div class="icon-circle"><i class="ph ph-arrow-right"></i></div>
+              </button>
+            </div>
+          </div>
         </div>
 
         <div class="hero-stats">
           <div class="hero-stat">
-            <div class="hero-stat-number" id="stat-places">—</div>
+            <div class="hero-stat-number" id="stat-places">120</div>
             <div class="hero-stat-label">Destinations</div>
-          </div>
-          <div class="hero-stat">
-            <div class="hero-stat-number">∞</div>
-            <div class="hero-stat-label">Adventures</div>
           </div>
           <div class="hero-stat">
             <div class="hero-stat-number">24/7</div>
             <div class="hero-stat-label">Explore</div>
           </div>
+          <div class="hero-stat">
+            <div class="hero-stat-number">10k+</div>
+            <div class="hero-stat-label">Stories</div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Featured Places -->
-  <section style="padding-top:80px">
+  <!-- Featured Places (Asymmetrical Bento) -->
+  <section id="trending" style="padding: 160px 0">
     <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Trending Destinations</h2>
-        <p class="section-subtitle">Explore the most popular places shared by our expert guides</p>
+      <div class="section-header reveal-up">
+        <div class="micro-badge">Curated Selection</div>
+        <h2 class="display-h1" style="font-size: clamp(2.5rem, 6vw, 4.5rem)">Trending Destinations</h2>
+        <p class="hero-subtitle" style="margin: 24px auto 0">The world's most breathtaking spots, verified by local experts.</p>
       </div>
-      <div class="places-grid" id="featured-places">
+      
+      <div class="bento-grid gapless-flow" id="featured-places">
+        <!-- Dynamically injected cards will follow asymmetrical pattern -->
         <div class="spinner"></div>
       </div>
-      <div style="text-align:center;margin-top:40px">
-        <button class="btn btn-ghost btn-lg" onclick="App.navigate('search')">View All Destinations →</button>
+
+      <div style="text-align:center;margin-top:80px">
+        <button class="btn-island" onclick="App.navigate('search')">
+          View All Destinations
+          <div class="icon-circle"><i class="ph ph-globe"></i></div>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Desire Section: Cinematic Text Reveal -->
+  <section id="manifesto" style="padding: 200px 0; background: var(--bg-card)">
+    <div class="container">
+      <div class="reveal-text-wrap">
+        <p class="manifesto-text">
+          Travel is not about the destination. It is about the <span class="text-highlight">unseen paths</span>, the <span class="text-highlight">whispered stories</span> of ancient walls, and the <span class="text-highlight">breathtaking silence</span> of a mountain peak at dawn. TravelSuite brings you there.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partner Marquee (Infinite) -->
+  <section id="partners" style="padding: 100px 0; overflow: hidden; border-top: 1px solid var(--border-hair); border-bottom: 1px solid var(--border-hair)">
+    <div class="marquee">
+      <div class="marquee-content">
+        <div class="partner-logo"><i class="ph-bold ph-airplane-tilt"></i> SKYLINE</div>
+        <div class="partner-logo"><i class="ph-bold ph-mountains"></i> PEAK</div>
+        <div class="partner-logo"><i class="ph-bold ph-compass"></i> GUIDER</div>
+        <div class="partner-logo"><i class="ph-bold ph-tent"></i> BASECAMP</div>
+        <div class="partner-logo"><i class="ph-bold ph-waves"></i> SHORE</div>
+        <div class="partner-logo"><i class="ph-bold ph-map-trifold"></i> CARTOS</div>
+        <!-- Repeat for smooth loop -->
+        <div class="partner-logo"><i class="ph-bold ph-airplane-tilt"></i> SKYLINE</div>
+        <div class="partner-logo"><i class="ph-bold ph-mountains"></i> PEAK</div>
+        <div class="partner-logo"><i class="ph-bold ph-compass"></i> GUIDER</div>
+        <div class="partner-logo"><i class="ph-bold ph-tent"></i> BASECAMP</div>
       </div>
     </div>
   </section>
 
   <!-- Platform Features (Bento Grid) -->
-  <section id="features">
+  <section id="features" style="padding: 120px 0">
     <div class="container">
       <div class="section-header reveal-up">
-        <h2 class="section-title">Built for Explorers</h2>
-        <p class="section-subtitle">Experience travel through a lens of authenticity and expertise.</p>
+        <div class="micro-badge">Platform Pillars</div>
+        <h2 class="display-h1" style="font-size: clamp(2rem, 5vw, 4rem)">Built for Explorers</h2>
+        <p class="hero-subtitle" style="margin: 24px auto 0">Experience travel through a lens of authenticity and expertise.</p>
       </div>
 
       <div class="bento-grid">
-        <div class="bento-item bento-hero glass spotlight reveal-up">
-          <div class="bento-content">
-            <i class="ph ph-shield-check"></i>
-            <h3>Expert Verification</h3>
-            <p>Every guide is vetted to ensure you get the most accurate, high-quality information for your next journey.</p>
+        <div class="bento-item bento-hero bezel spotlight reveal-up">
+          <div class="bezel-core" style="background: url('https://phongnhacavestour.com/wp-content/uploads/2016/11/Phong-Nha-Cave-2.jpg') center/cover">
+            <div class="bento-overlay"></div>
+            <div class="bento-content relative z-10" style="padding: 40px; height: 100%; display: flex; flex-direction: column; justify-content: flex-end">
+              <i class="ph ph-shield-check"></i>
+              <h3>Expert Verification</h3>
+              <p>Every guide is vetted to ensure you get the most accurate, high-quality information for your next journey.</p>
+            </div>
           </div>
-          <div class="bento-visual" style="background: linear-gradient(to bottom right, var(--primary-dark), transparent)"></div>
         </div>
         
-        <div class="bento-item glass spotlight reveal-up">
-          <div class="bento-content">
-            <i class="ph ph-map-pin"></i>
-            <h3>Hidden Gems</h3>
-            <p>Find locations that aren't on any map, curated by locals who know the land.</p>
+        <div class="bento-item bezel spotlight reveal-up">
+          <div class="bezel-core" style="background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo6toZ9m01NtuAimGQwo0_7IZjIgi-1LaFRNUSIMglKTdBl8EhLO3Mkag&s=10') center/cover">
+            <div class="bento-overlay"></div>
+            <div class="bento-content relative z-10" style="padding: 32px; height: 100%; display: flex; flex-direction: column; justify-content: flex-end">
+              <i class="ph ph-map-pin"></i>
+              <h3>Hidden Gems</h3>
+              <p>Find locations that aren't on any map, curated by locals.</p>
+            </div>
           </div>
         </div>
 
-        <div class="bento-item glass spotlight reveal-up">
-          <div class="bento-content">
-            <i class="ph ph-users-three"></i>
-            <h3>Real Reviews</h3>
-            <p>Authentic feedback from a community of passionate travelers.</p>
+        <div class="bento-item bezel spotlight reveal-up">
+          <div class="bezel-core" style="background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBqHo-wNpmoKAVWDyJFsAOqXzDSO48VIZZc4FktFaUybQrDFtJFODp40-D&s=10') center/cover">
+            <div class="bento-overlay"></div>
+            <div class="bento-content relative z-10" style="padding: 32px; height: 100%; display: flex; flex-direction: column; justify-content: flex-end">
+              <i class="ph ph-users-three"></i>
+              <h3>Real Reviews</h3>
+              <p>Authentic feedback from a community of passionate travelers.</p>
+            </div>
           </div>
         </div>
 
-        <div class="bento-item bento-wide glass spotlight reveal-up" style="background: url('https://picsum.photos/seed/travel-landscape/800/400') center/cover">
-          <div class="bento-overlay"></div>
-          <div class="bento-content relative z-10">
-            <i class="ph ph-image-square"></i>
-            <h3>Stunning Galleries</h3>
-            <p>High-resolution visual storytelling for every destination.</p>
+        <div class="bento-item bento-wide bezel spotlight reveal-up">
+          <div class="bezel-core" style="background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRC-bR-1CN0n05HPVBfoFHPFyf4NWkn8FmmoZi_gQ3kM2tbl7hBErtLkWwG&s=10') center/cover">
+            <div class="bento-overlay"></div>
+            <div class="bento-content relative z-10" style="padding: 40px; height: 100%; display: flex; flex-direction: column; justify-content: flex-end">
+              <i class="ph ph-image-square"></i>
+              <h3>Stunning Galleries</h3>
+              <p>High-resolution visual storytelling for every destination.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -159,12 +213,12 @@
   </section>
 
   <!-- How It Works -->
-  <section id="how-it-works" style="overflow:hidden">
+  <section id="how-it-works" style="overflow:hidden; padding: 120px 0">
     <div class="container">
       <div class="section-header reveal-up">
-        <div class="section-tag">The Process</div>
-        <h2 class="section-title">Start Your Journey</h2>
-        <p class="section-subtitle">Unlocking the world's most breathtaking destinations is simple and rewarding.</p>
+        <div class="micro-badge">The Protocol</div>
+        <h2 class="display-h1" style="font-size: clamp(2rem, 5vw, 4rem)">Start Your Journey</h2>
+        <p class="hero-subtitle" style="margin: 24px auto 0">Unlocking the world's most breathtaking destinations is simple and rewarding.</p>
       </div>
 
       <div class="process-steps">
@@ -173,12 +227,17 @@
           <div class="process-content">
             <div class="process-number">01</div>
             <h3 class="process-h3">Join the Community</h3>
-            <p class="process-p">Create your free account as a <strong>Guide</strong> to share hidden gems, or a <strong>Traveller</strong> to explore and review. Your journey starts with a single click.</p>
-            <button class="btn btn-ghost btn-sm" onclick="UI.openModal('modal-auth');document.getElementById('tab-register').click()">Create Account →</button>
+            <p class="process-p">Create your free account as a <strong>Guide</strong> to share hidden gems, or a <strong>Traveller</strong> to explore and review.</p>
+            <button class="btn-island" onclick="UI.openModal('modal-auth');document.getElementById('tab-register').click()">
+              Create Account
+              <div class="icon-circle"><i class="ph ph-user-plus"></i></div>
+            </button>
           </div>
           <div class="process-visual">
-            <div class="visual-box glass spotlight">
-              <i class="ph ph-user-plus"></i>
+            <div class="bezel spotlight" style="width: 100%; max-width: 400px">
+              <div class="bezel-core visual-box" style="box-shadow: none">
+                <i class="ph ph-user-plus"></i>
+              </div>
             </div>
           </div>
         </div>
@@ -188,26 +247,17 @@
           <div class="process-content">
             <div class="process-number">02</div>
             <h3 class="process-h3">Explore the Unseen</h3>
-            <p class="process-p">Use our powerful search to find destinations curated by local experts. From mountain peaks to hidden city cafes, discover places you won't find in typical brochures.</p>
-            <button class="btn btn-ghost btn-sm" onclick="App.navigate('search')">Start Exploring →</button>
+            <p class="process-p">Use our powerful search to find destinations curated by local experts. Discover places you won't find in typical brochures.</p>
+            <button class="btn-island" onclick="App.navigate('search')">
+              Start Exploring
+              <div class="icon-circle"><i class="ph ph-map-trifold"></i></div>
+            </button>
           </div>
           <div class="process-visual">
-            <div class="visual-box glass spotlight">
-              <i class="ph ph-map-trifold"></i>
-            </div>
-          </div>
-        </div>
-
-        <!-- Step 3 -->
-        <div class="process-row reveal-up">
-          <div class="process-content">
-            <div class="process-number">03</div>
-            <h3 class="process-h3">Share & Contribute</h3>
-            <p class="process-p">Guides bring places to life with high-quality photos and insider tips. Every shared location helps our community find their next unforgettable adventure.</p>
-          </div>
-          <div class="process-visual">
-            <div class="visual-box glass spotlight">
-              <i class="ph ph-camera"></i>
+            <div class="bezel spotlight" style="width: 100%; max-width: 400px">
+              <div class="bezel-core visual-box" style="box-shadow: none">
+                <i class="ph ph-map-trifold"></i>
+              </div>
             </div>
           </div>
         </div>
@@ -450,6 +500,4 @@
 <script src="/js/app.js"></script>
 
 </body>
-</html>
-
 </html>

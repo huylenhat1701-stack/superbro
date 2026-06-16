@@ -68,20 +68,33 @@ const UI = {
 const Motion = {
   reveal() {
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('active');
+          // Staggered reveal based on index if multiple items enter at once
+          setTimeout(() => {
+            entry.target.classList.add('active');
+          }, index * 100);
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    }, { 
+      threshold: 0.1, 
+      rootMargin: '0px 0px -100px 0px' 
+    });
 
-    document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal-up').forEach(el => {
+      observer.observe(el);
+    });
   },
 
   trackSpotlights() {
+    // Smoother spotlight tracking using requestAnimationFrame logic if needed, 
+    // but standard mousemove with CSS vars is usually GPU-fast enough.
     document.addEventListener('mousemove', e => {
-      document.querySelectorAll('.spotlight').forEach(el => {
+      const spotlights = document.querySelectorAll('.spotlight');
+      if (spotlights.length === 0) return;
+      
+      spotlights.forEach(el => {
         const rect = el.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;

@@ -79,7 +79,7 @@ const Places = {
       return;
     }
 
-    container.innerHTML = places.map(p => this.renderCard(p)).join('');
+    container.innerHTML = places.map((p, i) => this.renderCard(p, i)).join('');
     this.bindCardClicks(container);
     this.renderPagination(pagination);
   },
@@ -101,31 +101,47 @@ const Places = {
     container.innerHTML = `<div class="pagination">${html}</div>`;
   },
 
-  // ─── Place Card Render ───────────────────────────────────────
-  renderCard(place) {
+  renderCard(place, index = 0) {
     const stars = this.renderStars(place.avg_rating);
     const emoji = this.categoryEmoji[place.category] || '🌍';
+    const fallbacks = [
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo6toZ9m01NtuAimGQwo0_7IZjIgi-1LaFRNUSIMglKTdBl8EhLO3Mkag&s=10',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBqHo-wNpmoKAVWDyJFsAOqXzDSO48VIZZc4FktFaUybQrDFtJFODp40-D&s=10',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRC-bR-1CN0n05HPVBfoFHPFyf4NWkn8FmmoZi_gQ3kM2tbl7hBErtLkWwG&s=10',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgFGEXUrgiDUT1EAMNwHOdJooWAfyiyrJk3dcz3fBSxMh7Wwbc_fiMhAKs&s=10',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHhl8nbH4ZJIiLs-OaoXwNm0V5W2IfPb3gKFesLqLQOKcZPThvMs0hxA0&s=10',
+      'https://phongnhacavestour.com/wp-content/uploads/2016/11/Phong-Nha-Cave-2.jpg'
+    ];
+    const fallbackImg = fallbacks[index % fallbacks.length];
+    
     const imgHtml = place.thumbnail
       ? `<img src="/uploads/${place.thumbnail}" alt="${place.name}" loading="lazy">`
-      : `<div class="place-card-placeholder">${emoji}</div>`;
+      : `<img src="${fallbackImg}" alt="${place.name}" loading="lazy">`;
+
+    // Asymmetrical classes for the bento grid pattern
+    let bentoClass = 'bento-card';
+    if (index % 7 === 0) bentoClass += ' large';
+    else if (index % 7 === 3) bentoClass += ' wide';
+    else if (index % 7 === 5) bentoClass += ' tall';
 
     return `
-      <article class="place-card spotlight reveal-up" data-id="${place.id}" role="button" tabindex="0">
-        <div class="place-card-img">
-          ${imgHtml}
-          <span class="place-card-category">${emoji} ${place.category}</span>
-        </div>
-        <div class="place-card-body">
-          <h3 class="place-card-name">${this.esc(place.name)}</h3>
-          <div class="place-card-location">${this.esc(place.location)}</div>
-          <p class="place-card-desc">${this.esc(place.description || 'No description available.')}</p>
-          <div class="place-card-footer">
-            <div class="place-rating">
-              <span class="stars">${stars}</span>
-              <span class="rating-num">${place.avg_rating ? place.avg_rating.toFixed(1) : 'New'}</span>
-              <span class="rating-count">(${place.rating_count || 0})</span>
+      <article class="${bentoClass} bezel spotlight reveal-up" data-id="${place.id}" role="button" tabindex="0">
+        <div class="bezel-core place-card">
+          <div class="place-card-img">
+            ${imgHtml}
+            <span class="place-card-category">${emoji} ${place.category}</span>
+          </div>
+          <div class="place-card-body">
+            <h3 class="place-card-name">${this.esc(place.name)}</h3>
+            <div class="place-card-location"><i class="ph ph-map-pin"></i> ${this.esc(place.location)}</div>
+            <p class="place-card-desc">${this.esc(place.description || 'No description available.')}</p>
+            <div class="place-card-footer">
+              <div class="place-rating">
+                <span class="stars">${stars}</span>
+                <span class="rating-num">${place.avg_rating ? place.avg_rating.toFixed(1) : 'New'}</span>
+              </div>
+              <div class="place-guide">by <strong>${this.esc(place.guide_name)}</strong></div>
             </div>
-            <div class="place-guide">by <strong>${this.esc(place.guide_name)}</strong></div>
           </div>
         </div>
       </article>`;
@@ -161,11 +177,11 @@ const Places = {
     const { place, images, comments } = res.data;
     const isOwner = Auth.isLoggedIn() && Auth.getUser().id === place.guide_id;
     const emoji = this.categoryEmoji[place.category] || '🌍';
-    const coverImg = images.length ? `/uploads/${images[0].filename}` : null;
+    const coverImg = images.length ? `/uploads/${images[0].filename}` : 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1600&q=80';
 
     page.innerHTML = `
       <div class="detail-hero">
-        ${coverImg ? `<img class="detail-hero-img" src="${coverImg}" alt="${this.esc(place.name)}">` : `<div style="width:100%;height:100%;background:linear-gradient(135deg,#1e1b4b,#312e81);display:flex;align-items:center;justify-content:center;font-size:5rem">${emoji}</div>`}
+        <img class="detail-hero-img" src="${coverImg}" alt="${this.esc(place.name)}">
         <div class="detail-hero-overlay"></div>
         <div class="detail-hero-content container">
           <div class="detail-category">${emoji} ${this.esc(place.category)}</div>
