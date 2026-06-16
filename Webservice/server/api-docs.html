@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel Suite — API Documentation</title>
+  <meta name="description" content="Tài liệu API đầy đủ cho Travel Suite Web Service — REST API cho ứng dụng du lịch với xác thực JWT, quản lý địa điểm, ảnh, và bình luận." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Swagger UI -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css" />
+
+  <style>
+    /* ─── Design Tokens ───────────────────────────────── */
+    :root {
+      --bg-base:        #0a0e1a;
+      --bg-surface:     #0f1629;
+      --bg-card:        #141c33;
+      --bg-elevated:    #1a2444;
+      --border:         #1e2d50;
+      --border-light:   #263660;
+      --accent:         #4f8ef7;
+      --accent-hover:   #6ba3ff;
+      --accent-dim:     #1a2f66;
+      --success:        #22c55e;
+      --warning:        #f59e0b;
+      --danger:         #ef4444;
+      --text-primary:   #e8edf8;
+      --text-secondary: #8899bb;
+      --text-muted:     #4a5878;
+      --gradient-hero:  linear-gradient(135deg, #0a0e1a 0%, #0d1530 40%, #0f1f3d 100%);
+      --font-body:      'Inter', sans-serif;
+      --font-mono:      'JetBrains Mono', monospace;
+      --radius-sm:      6px;
+      --radius-md:      12px;
+      --radius-lg:      20px;
+      --shadow-glow:    0 0 40px rgba(79, 142, 247, 0.15);
+      --transition:     all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ─── Base Reset ──────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-base);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── Hero Header ─────────────────────────────────── */
+    .hero {
+      background: var(--gradient-hero);
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 800px 400px at 20% 50%, rgba(79,142,247,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 600px 300px at 80% 30%, rgba(107,163,255,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 48px 32px 40px;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(79, 142, 247, 0.1);
+      border: 1px solid rgba(79, 142, 247, 0.3);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 20px;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--success);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      background: linear-gradient(135deg, #e8edf8 30%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 600px;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    /* ─── Stats Bar ───────────────────────────────────── */
+    .stats-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .stat-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 8px 14px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      transition: var(--transition);
+    }
+
+    .stat-chip:hover {
+      border-color: var(--border-light);
+      color: var(--text-primary);
+    }
+
+    .stat-chip .icon { font-size: 15px; }
+    .stat-chip strong { color: var(--text-primary); font-weight: 600; }
+
+    /* ─── Quick Links ─────────────────────────────────── */
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .quick-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+    }
+
+    .quick-link.primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .quick-link.primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(79,142,247,0.4); }
+
+    .quick-link.secondary {
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+    .quick-link.secondary:hover { border-color: var(--border-light); color: var(--text-primary); }
+
+    /* ─── Base URL bar ────────────────────────────────── */
+    .base-url-bar {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+    }
+
+    .base-url-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 12px 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .base-url-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+
+    .base-url-value {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--accent);
+      background: var(--accent-dim);
+      padding: 4px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(79,142,247,0.25);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .base-url-value:hover { background: rgba(79,142,247,0.2); }
+
+    .version-tag {
+      font-size: 12px;
+      font-weight: 600;
+      background: rgba(34,197,94,0.1);
+      color: var(--success);
+      border: 1px solid rgba(34,197,94,0.25);
+      border-radius: var(--radius-sm);
+      padding: 3px 10px;
+    }
+
+    /* ─── Main Layout ─────────────────────────────────── */
+    .main-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 32px 32px 80px;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* ─── Sidebar TOC ─────────────────────────────────── */
+    .sidebar {
+      position: sticky;
+      top: 24px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+    }
+
+    .sidebar-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .toc-group {
+      margin-bottom: 16px;
+    }
+
+    .toc-group-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 6px 10px;
+      margin-bottom: 4px;
+    }
+
+    .toc-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+    .toc-item:hover, .toc-item.active {
+      background: var(--accent-dim);
+      color: var(--text-primary);
+    }
+
+    .method-badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      min-width: 38px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .badge-get    { background: rgba(34,197,94,0.15);  color: #22c55e; }
+    .badge-post   { background: rgba(79,142,247,0.15); color: #4f8ef7; }
+    .badge-put    { background: rgba(245,158,11,0.15); color: #f59e0b; }
+    .badge-delete { background: rgba(239,68,68,0.15);  color: #ef4444; }
+
+    /* ─── Content Area ────────────────────────────────── */
+    .content-area {
+      min-width: 0;
+    }
+
+    /* ─── Section header ──────────────────────────────── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-icon {
+      width: 36px; height: 36px;
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .section-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* ─── Endpoint Card ───────────────────────────────── */
+    .endpoint-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: 16px;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .endpoint-card:hover { border-color: var(--border-light); box-shadow: var(--shadow-glow); }
+
+    .endpoint-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .method-tag {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: var(--radius-sm);
+      min-width: 62px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .endpoint-path {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      flex: 1;
+    }
+
+    .endpoint-path .param { color: var(--warning); }
+
+    .endpoint-summary {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-left: auto;
+      text-align: right;
+      max-width: 300px;
+    }
+
+    .endpoint-auth {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--warning);
+      background: rgba(245,158,11,0.1);
+      border: 1px solid rgba(245,158,11,0.2);
+      border-radius: 999px;
+      padding: 3px 10px;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .endpoint-chevron {
+      color: var(--text-muted);
+      font-size: 14px;
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    .endpoint-card.expanded .endpoint-chevron { transform: rotate(180deg); }
+
+    .endpoint-body {
+      display: none;
+      padding: 0 20px 20px;
+      border-top: 1px solid var(--border);
+    }
+    .endpoint-card.expanded .endpoint-body { display: block; }
+
+    /* ─── Endpoint sections ───────────────────────────── */
+    .ep-section { margin-top: 20px; }
+
+    .ep-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .ep-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      padding: 14px 16px;
+      background: var(--bg-card);
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--accent-dim);
+    }
+
+    /* ─── Params Table ────────────────────────────────── */
+    .params-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .params-table th {
+      text-align: left;
+      padding: 10px 14px;
+      background: var(--bg-card);
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--border);
+    }
+    .params-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      color: var(--text-secondary);
+    }
+    .params-table tr:last-child td { border-bottom: none; }
+    .params-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .param-name {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+    .param-required {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--danger);
+      background: rgba(239,68,68,0.1);
+      border-radius: 3px;
+      padding: 1px 5px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+    .param-type {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border-radius: 4px;
+      padding: 2px 7px;
+    }
+
+    /* ─── Request Body / Response ─────────────────────── */
+    .code-block {
+      background: #060b18;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      line-height: 1.7;
+      overflow-x: auto;
+      color: #c9d1d9;
+      position: relative;
+    }
+
+    .code-block .copy-btn {
+      position: absolute;
+      top: 10px; right: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+      font-size: 11px;
+      padding: 4px 10px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: var(--font-body);
+    }
+    .code-block .copy-btn:hover { color: var(--text-primary); border-color: var(--border-light); }
+    .code-block .copy-btn.copied { color: var(--success); border-color: var(--success); }
+
+    .json-key   { color: #79c0ff; }
+    .json-str   { color: #a5d6ff; }
+    .json-num   { color: #f2cc60; }
+    .json-bool  { color: #ff7b72; }
+    .json-null  { color: #8b949e; }
+    .json-comment { color: #8b949e; font-style: italic; }
+
+    /* ─── Response codes ──────────────────────────────── */
+    .response-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .response-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 14px;
+      background: var(--bg-card);
+      border-radius: var(--radius-sm);
+      border-left: 3px solid transparent;
+    }
+    .response-item.r-2xx { border-left-color: var(--success); }
+    .response-item.r-4xx { border-left-color: var(--warning); }
+    .response-item.r-5xx { border-left-color: var(--danger); }
+
+    .response-code {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      min-width: 36px;
+    }
+    .r-2xx .response-code { color: var(--success); }
+    .r-4xx .response-code { color: var(--warning); }
+    .r-5xx .response-code { color: var(--danger); }
+
+    .response-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ─── Try It Section ──────────────────────────────── */
+    .try-section {
+      margin-top: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+    }
+
+    .try-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .try-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .try-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      background: var(--accent);
+      color: #fff;
+    }
+    .try-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+    .try-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .try-input {
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      transition: var(--transition);
+      resize: vertical;
+    }
+    .try-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(79,142,247,0.1);
+    }
+
+    .try-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .try-response {
+      margin-top: 14px;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+      display: none;
+    }
+    .try-response.visible { display: block; }
+
+    .try-response-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .try-status {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: var(--radius-sm);
+    }
+    .status-ok  { background: rgba(34,197,94,0.15); color: var(--success); }
+    .status-err { background: rgba(239,68,68,0.15); color: var(--danger); }
+
+    .try-time {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ─── Responsive ──────────────────────────────────── */
+    @media (max-width: 900px) {
+      .main-wrapper { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+    }
+
+    @media (max-width: 600px) {
+      .hero-inner { padding: 32px 16px 24px; }
+      .main-wrapper { padding: 20px 16px 60px; }
+      .base-url-inner { padding: 10px 16px; }
+      .endpoint-summary { display: none; }
+    }
+
+    /* ─── Sections wrapper ────────────────────────────── */
+    .api-section {
+      margin-bottom: 48px;
+    }
+
+    /* ─── Auth demo box ───────────────────────────────── */
+    .auth-demo-box {
+      background: var(--bg-card);
+      border: 1px solid rgba(245,158,11,0.25);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 28px;
+    }
+
+    .auth-demo-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--warning);
+      margin-bottom: 14px;
+    }
+
+    .demo-accounts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .demo-account {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+    }
+
+    .demo-role {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .demo-field {
+      font-size: 12px;
+      color: var(--text-secondary);
+      display: flex;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .demo-field span { color: var(--text-muted); }
+    .demo-field code {
+      font-family: var(--font-mono);
+      color: var(--text-primary);
+    }
+
+    /* ─── Token manager ───────────────────────────────── */
+    .token-manager {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .token-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    #token-input {
+      flex: 1;
+      min-width: 200px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 8px 12px;
+    }
+    #token-input:focus { outline: none; border-color: var(--accent); }
+
+    .token-save-btn {
+      padding: 8px 16px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .token-save-btn:hover { background: var(--accent-hover); }
+
+    .token-status {
+      font-size: 12px;
+      color: var(--success);
+      display: none;
+    }
+    .token-status.visible { display: inline; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
+
+    /* Selection */
+    ::selection { background: rgba(79,142,247,0.3); }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════ HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🌏 REST API v1.0</div>
+    <h1>Travel Suite API Documentation</h1>
+    <p class="hero-subtitle">
+      Tài liệu đầy đủ cho REST Web Service của ứng dụng du lịch. 
+      Hỗ trợ Guide đăng địa điểm và Traveller khám phá, đánh giá.
+    </p>
+
+    <div class="stats-bar">
+      <div class="stat-chip"><span class="icon">🔗</span><strong>14</strong> Endpoints</div>
+      <div class="stat-chip"><span class="icon">🔒</span>JWT Auth</div>
+      <div class="stat-chip"><span class="icon">🗄️</span>SQLite</div>
+      <div class="stat-chip"><span class="icon">📁</span>Multer Upload</div>
+      <div class="stat-chip"><span class="icon">🌐</span>CORS Enabled</div>
+    </div>
+
+    <div class="quick-links">
+      <button class="quick-link primary" onclick="scrollToSection('auth-section')">🔐 Auth</button>
+      <button class="quick-link secondary" onclick="scrollToSection('places-section')">📍 Places</button>
+      <button class="quick-link secondary" onclick="scrollToSection('images-section')">🖼️ Images</button>
+      <button class="quick-link secondary" onclick="scrollToSection('comments-section')">💬 Comments</button>
+      <a class="quick-link secondary" href="/swagger-ui" target="_blank" rel="noopener">⚡ Swagger UI</a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════ BASE URL -->
+<div class="base-url-bar">
+  <div class="base-url-inner">
+    <span class="base-url-label">Base URL</span>
+    <span class="base-url-value" onclick="copyText('http://localhost:3000/api', this)" title="Click để copy">
+      http://localhost:3000/api
+    </span>
+    <span class="version-tag">v1.0.0</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ MAIN -->
+<div class="main-wrapper">
+
+  <!-- Sidebar TOC -->
+  <aside class="sidebar">
+    <div class="sidebar-title">📖 Nội dung</div>
+
+    <div class="toc-group">
+      <div class="toc-group-title">System</div>
+      <a class="toc-item" href="#health-section">
+        <span class="method-badge badge-get">GET</span> Health
+      </a>
+    </div>
+
+    <div class="toc-group">
+      <div class="toc-group-title">Auth</div>
+      <a class="toc-item" href="#auth-section">
+        <span class="method-badge badge-post">POST</span> Register
+      </a>
+      <a class="toc-item" href="#auth-section">
+        <span class="method-badge badge-post">POST</span> Login
+      </a>
+      <a class="toc-item" href="#auth-section">
+        <span class="method-badge badge-post">POST</span> Logout
+      </a>
+      <a class="toc-item" href="#auth-section">
+        <span class="method-badge badge-get">GET</span> Me
+      </a>
+    </div>
+
+    <div class="toc-group">
+      <div class="toc-group-title">Places</div>
+      <a class="toc-item" href="#places-section">
+        <span class="method-badge badge-get">GET</span> List
+      </a>
+      <a class="toc-item" href="#places-section">
+        <span class="method-badge badge-get">GET</span> Categories
+      </a>
+      <a class="toc-item" href="#places-section">
+        <span class="method-badge badge-get">GET</span> Detail
+      </a>
+      <a class="toc-item" href="#places-section">
+        <span class="method-badge badge-post">POST</span> Create
+      </a>
+      <a class="toc-item" href="#places-section">
+        <span class="method-badge badge-put">PUT</span> Update
+      </a>
+      <a class="toc-item" href="#places-section">
+        <span class="method-badge badge-delete">DEL</span> Delete
+      </a>
+    </div>
+
+    <div class="toc-group">
+      <div class="toc-group-title">Images</div>
+      <a class="toc-item" href="#images-section">
+        <span class="method-badge badge-post">POST</span> Upload
+      </a>
+      <a class="toc-item" href="#images-section">
+        <span class="method-badge badge-delete">DEL</span> Delete
+      </a>
+    </div>
+
+    <div class="toc-group">
+      <div class="toc-group-title">Comments</div>
+      <a class="toc-item" href="#comments-section">
+        <span class="method-badge badge-get">GET</span> List
+      </a>
+      <a class="toc-item" href="#comments-section">
+        <span class="method-badge badge-post">POST</span> Add
+      </a>
+      <a class="toc-item" href="#comments-section">
+        <span class="method-badge badge-delete">DEL</span> Delete
+      </a>
+    </div>
+  </aside>
+
+  <!-- Content -->
+  <main class="content-area">
+
+    <!-- ── Token Manager ── -->
+    <div class="token-manager">
+      <span class="token-label">🔑 JWT Token:</span>
+      <input type="text" id="token-input" placeholder="Paste JWT token sau khi đăng nhập..." />
+      <button class="token-save-btn" onclick="saveToken()">Lưu</button>
+      <span class="token-status" id="token-status">✓ Token đã lưu</span>
+    </div>
+
+    <!-- ════════════ HEALTH ════════════ -->
+    <section class="api-section" id="health-section">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(34,197,94,0.1)">💚</div>
+        <div>
+          <div class="section-title">Health Check</div>
+          <div class="section-desc">Kiểm tra trạng thái server</div>
+        </div>
+      </div>
+
+      <!-- GET /health -->
+      <div class="endpoint-card" id="ep-health">
+        <div class="endpoint-header" onclick="toggleEndpoint('ep-health')">
+          <span class="method-tag badge-get">GET</span>
+          <span class="endpoint-path">/api/health</span>
+          <span class="endpoint-summary">Server health check</span>
+          <span class="endpoint-chevron">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-desc">Kiểm tra server đang hoạt động. Không cần xác thực.</div>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Response 200</div>
+            <div class="code-block">
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<span class="json-comment">// 200 OK</span>
+{
+  <span class="json-key">"success"</span>: <span class="json-bool">true</span>,
+  <span class="json-key">"message"</span>: <span class="json-str">"Travel Suite API running"</span>,
+  <span class="json-key">"version"</span>: <span class="json-str">"1.0.0"</span>,
+  <span class="json-key">"timestamp"</span>: <span class="json-str">"2024-01-15T08:30:00.000Z"</span>
+}</div>
+          </div>
+          <div class="try-section">
+            <div class="try-header">
+              <span class="try-title">🧪 Thử ngay</span>
+              <button class="try-btn" onclick="tryRequest('GET', '/api/health', null, 'health-resp')">▶ Gửi request</button>
+            </div>
+            <div class="try-response" id="health-resp"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════ AUTH ════════════ -->
+    <section class="api-section" id="auth-section">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(79,142,247,0.1)">🔐</div>
+        <div>
+          <div class="section-title">Authentication</div>
+          <div class="section-desc">Đăng ký, đăng nhập và quản lý phiên đăng nhập</div>
+        </div>
+      </div>
+
+      <!-- Demo accounts -->
+      <div class="auth-demo-box">
+        <div class="auth-demo-title">⚠️ Tài khoản Demo</div>
+        <div class="demo-accounts">
+          <div class="demo-account">
+            <div class="demo-role">🧭 Guide</div>
+            <div class="demo-field"><span>Email:</span><code>guide@travel.com</code></div>
+            <div class="demo-field"><span>Pass:</span><code>guide123</code></div>
+          </div>
+          <div class="demo-account">
+            <div class="demo-role">🎒 Traveller</div>
+            <div class="demo-field"><span>Email:</span><code>traveller@travel.com</code></div>
+            <div class="demo-field"><span>Pass:</span><code>traveller123</code></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- POST /auth/register -->
+      <div class="endpoint-card" id="ep-register">
+        <div class="endpoint-header" onclick="toggleEndpoint('ep-register')">
+          <span class="method-tag badge-post">POST</span>
+          <span class="endpoint-path">/api/auth/register</span>
+          <span class="endpoint-summary">Đăng ký tài khoản mới</span>
+          <span class="endpoint-chevron">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-desc">Tạo tài khoản mới với role <code>guide</code> hoặc <code>traveller</code>. Trả về JWT token ngay sau khi đăng ký.</div>
+          </div>
+
+          <div class="ep-section">
+            <div class="ep-section-title">Request Body (application/json)</div>
+            <table class="params-table">
+              <thead><tr><th>Trường</th><th>Kiểu</th><th>Bắt buộc</th><th>Mô tả</th></tr></thead>
+              <tbody>
+                <tr><td><code class="param-name">username</code><span class="param-required">*</span></td><td><span class="param-type">string</span></td><td>✓</td><td>Tên đăng nhập duy nhất</td></tr>
+                <tr><td><code class="param-name">email</code><span class="param-required">*</span></td><td><span class="param-type">string</span></td><td>✓</td><td>Email hợp lệ, duy nhất</td></tr>
+                <tr><td><code class="param-name">password</code><span class="param-required">*</span></td><td><span class="param-type">string</span></td><td>✓</td><td>Tối thiểu 6 ký tự</td></tr>
+                <tr><td><code class="param-name">role</code><span class="param-required">*</span></td><td><span class="param-type">string</span></td><td>✓</td><td><code>"guide"</code> hoặc <code>"traveller"</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="ep-section">
+            <div class="ep-section-title">Responses</div>
+            <div class="response-list">
+              <div class="response-item r-2xx"><div class="response-code">201</div><div class="response-desc">Đăng ký thành công — trả về token và thông tin user</div></div>
+              <div class="response-item r-4xx"><div class="response-code">400</div><div class="response-desc">Thiếu trường, sai role, mật khẩu ngắn, email không hợp lệ</div></div>
+              <div class="response-item r-4xx"><div class="response-code">409</div><div class="response-desc">Email hoặc username đã tồn tại</div></div>
+            </div>
+          </div>
+
+          <div class="try-section">
+            <div class="try-header">
+              <span class="try-title">🧪 Thử ngay</span>
+              <button class="try-btn" onclick="tryRequest('POST', '/api/auth/register', document.getElementById('reg-body').value, 'reg-resp')">▶ Gửi</button>
+            </div>
+            <label class="try-label">Request Body</label>
+            <textarea class="try-input" id="reg-body" rows="7">{
+  "username": "test_user",
+  "email": "test@example.com",
+  "password": "test123",
+  "role": "traveller"
+}</textarea>
+            <div class="try-response" id="reg-resp"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- POST /auth/login -->
+      <div class="endpoint-card" id="ep-login">
+        <div class="endpoint-header" onclick="toggleEndpoint('ep-login')">
+          <span class="method-tag badge-post">POST</span>
+          <span class="endpoint-path">/api/auth/login</span>
+          <span class="endpoint-summary">Đăng nhập</span>
+          <span class="endpoint-chevron">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-desc">Xác thực bằng email + mật khẩu. Trả về JWT token có hiệu lực <strong>7 ngày</strong>. Copy token và paste vào ô "JWT Token" ở trên.</div>
+          </div>
+
+          <div class="ep-section">
+            <div class="ep-section-title">Request Body</div>
+            <table class="params-table">
+              <thead><tr><th>Trường</th><th>Kiểu</th><th>Mô tả</th></tr></thead>
+              <tbody>
+                <tr><td><code class="param-name">email</code><span class="param-required">*</span></td><td><span class="param-type">string</span></td><td>Địa chỉ email đã đăng ký</td></tr>
+                <tr><td><code class="param-name">password</code><span class="param-required">*</span></td><td><span class="param-type">string</span></td><td>Mật khẩu</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="ep-section">
+            <div class="ep-section-title">Response 200</div>
+            <div class="code-block">
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+{
+  <span class="json-key">"success"</span>: <span class="json-bool">true</span>,
+  <span class="json-key">"message"</span>: <span class="json-str">"Login successful"</span>,
+  <span class="json-key">"data"</span>: {
+    <span class="json-key">"token"</span>: <span class="json-str">"eyJhbGci..."</span>,
+    <span class="json-key">"user"</span>: {
+      <span class="json-key">"id"</span>: <span class="json-str">"uuid..."</span>,
+      <span class="json-key">"username"</span>: <span class="json-str">"guide_demo"</span>,
+      <span class="json-key">"email"</span>: <span class="json-str">"guide@travel.com"</span>,
+      <span class="json-key">"role"</span>: <span class="json-str">"guide"</span>
+    }
+  }
+}</div>
+          </div>
+
+          <div class="try-section">
+            <div class="try-header">
+              <span class="try-title">🧪 Thử ngay</span>
+              <button class="try-btn" onclick="tryLoginAndSave()">▶ Đăng nhập & Lưu Token</button>
+            </div>
+            <label class="try-label">Request Body</label>
+            <textarea class="try-input" id="login-body" rows="5">{
+  "email": "guide@travel.com",
+  "password": "guide123"
+}</textarea>
+            <div class="try-response" id="login-resp"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- POST /auth/logout -->
+      <div class="endpoint-card" id="ep-logout">
+        <div class="endpoint-header" onclick="toggleEndpoint('ep-logout')">
+          <span class="method-tag badge-post">POST</span>
+          <span class="endpoint-path">/api/auth/logout</span>
+          <span class="endpoint-auth">🔒 Requires Auth</span>
+          <span class="endpoint-summary">Đăng xuất</span>
+          <span class="endpoint-chevron">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-desc">Vô hiệu hóa JWT token hiện tại (thêm vào blacklist). Không cần body. Cần gửi <code>Authorization: Bearer &lt;token&gt;</code>.</div>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Responses</div>
+            <div class="response-list">
+              <div class="response-item r-2xx"><div class="response-code">200</div><div class="response-desc">Đăng xuất thành công</div></div>
+              <div class="response-item r-4xx"><div class="response-code">401</div><div class="response-desc">Chưa xác thực hoặc token hết hạn</div></div>
+            </div>
+          </div>
+          <div class="try-section">
+            <div class="try-header">
+              <span class="try-title">🧪 Thử ngay</span>
+              <button class="try-btn" onclick="tryRequest('POST', '/api/auth/logout', null, 'logout-resp', true)">▶ Đăng xuất</button>
+            </div>
+            <div class="try-response" id="logout-resp"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GET /auth/me -->
+      <div class="endpoint-card" id="ep-me">
+        <div class="endpoint-header" onclick="toggleEndpoint('ep-me')">
+          <span class="method-tag badge-get">GET</span>
+          <span class="endpoint-path">/api/auth/me</span>
+          <span class="endpoint-auth">🔒 Requires Auth</span>
+          <span class="endpoint-summary">Thông tin người dùng hiện tại</span>
+          <span class="endpoint-chevron">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-desc">Trả về thông tin chi tiết của người dùng đang đăng nhập dựa trên JWT token.</div>
+          </div>
+          <div class="try-section">
+            <div class="try-header">
+              <span class="try-title">🧪 Thử ngay</span>
+              <button class="try-btn" onclick="tryRequest('GET', '/api/auth/me', null, 'me-resp', true)">▶ Gửi</button>
+            </div>
+            <div class="try-response" id="me-resp"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════ PLACES ════════════ -->
+    <section class="api-section" id="places-section">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(245,158,11,0.1)">📍</div>
+        <div>
+          <div class="section-title">Places</div>
+          <div class="section-desc">CRUD địa điểm du lịch, tìm kiếm và phân trang</div>
+        </div>
+      </div>
+
+      <!-- GET /places -->
+      <div class="endpoint-card" id="ep-places-list">
+        <div class="endpoint-header" onclick="toggleEndpoint('ep-places-list')">
+          <span class="method-tag badge-get">GET</span>
+          <span class="endpoint-path">/api/places</span>
+          <span class="endpoint-summary">Tìm kiếm & danh sách địa điểm</span>
+          <span class="endpoint-chevron">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-desc">Lấy danh sách địa điểm có phân trang. Hỗ trợ tìm kiếm từ khoá và lọc theo category. Không cần đăng nhập.</div>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Query Parameters</div>
+            <table class="params-table">
+              <thead><tr><th>Tham số</th><th>Kiểu</th><th>Mặc định</th><th>Mô tả</th></tr></thead>
+              <tbody>
+                <tr><td><code class="param-name">q</code></td><td><span class="param-type">string</span></td><td>""</td><td>Từ khoá tìm trong name, description, location</td></tr>
+                <tr><td><code class="param-name">category</code></td><td><span class="param-type">string</span></td><td>""</td><td>Heritage | Nature | Adventure | Beach | City | Mountain | Food | Culture | Other</td></tr>
+                <tr><td><code class="param-name">guide_id</code></td><td><span class="param-type">uuid</span></td><td>""</td><td>Lọc theo guide sở hữu</td></tr>
+                <tr><td><code class="param-name">page</code></td><td><span class="param-type">integer</span></td><td>1</td><td>Trang hiện tại</td></tr>
+                <tr><td><code class="param-name">limit</code></td><td><span class="param-type">integer</span></td><td>12</td><td>Số items mỗi trang (max 100)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="try-section">
+            <div class="try-header">
+              <span class="try-title">🧪 Thử ngay</span>
+              <button class="try-btn" onclick="tryRequest('GET', '/api/places?page=1&limit=5', null, 'places-list-resp')">▶ Gửi</button>
+            </div>
+            <label class="try-label">URL (có thể sửa query params)</label>
+            <input type="text" class="try-input" id="places-list-url" value="/api/places?q=&page=1&limit=5" style="resize:none;height:auto" />
+            <div class="try-response" id="places-list-resp"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GET /places/categories -->
+      <div class="endpoint-card" id="ep-categories">
+        <div class="endpoint-header" onclick="toggleEndpoint('ep-categories')">
+          <span class="method-tag badge-get">GET</span>
+          <span class="endpoint-path">/api/places/categories</span>
+          <span class="endpoint-summary">Danh sách categories</span>
+          <span class="endpoint-chevron">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-desc">Trả về mảng tất cả các danh mục địa điểm hợp lệ. Không cần xác thực.</div>
+          </div>
+          <div class="try-section">
+            <div class="try-header">
+              <span class="try-title">🧪 Thử ngay</span>
+              <button class="try-btn" onclick="tryRequest('GET', '/api/places/categories', null, 'cat-resp')">▶ Gửi</button>
+            </div>
+            <div class="try-response" id="cat-resp"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GET /places/:id -->
+      <div class="endpoint-card" id="ep-place-detail">
+        <div class="endpoint-header" onclick="toggleEndpoint('ep-place-detail')">
+          <span class="method-tag badge-get">GET</span>
+          <span class="endpoint-path">/api/places/<span class="param">{id}</span></span>
+          <span class="endpoint-summary">Chi tiết địa điểm</span>
+          <span class="endpoint-chevron">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-desc">Lấy đầy đủ thông tin địa điểm: info cơ bản + guide + danh sách ảnh + bình luận.</div>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Path Parameter</div>
+            <table class="params-table">
+              <thead><tr><th>Tham số</th><th>Kiểu</th><th>Mô tả</th></tr></thead>
+              <tbody><tr><td><code class="param-name">id</code><span class="param-required">*</span></td><td><span class="param-type">uuid</span></td><td>UUID của địa điểm</td></tr></tbody>
+            </table>
+          </div>
+          <div class="try-section">
+            <div class="try-header">
+              <span class="try-title">🧪 Thử ngay</span>
+              <button class="try-btn" onclick="tryPlaceDetail()">▶ Gửi</button>
+            </div>
+            <label class="try-label">Place ID</label>
+            <input type="text" class="try-input" id="place-id-input" placeholder="Paste UUID từ danh sách..." style="resize:none;height:auto" />
+            <div class="try-response" id="place-detail-resp"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- POST /places -->
+      <div class="endpoint-card" id="ep-place-create">
+        <div class="endpoint-header" onclick="toggleEndpoint('ep-place-create')">
+          <span class="method-tag badge-post">POST</span>
+          <span class="endpoint-path">/api/places</span>
+          <span class="endpoint-auth">🔒 Guide Only</span>
+          <span class="endpoint-summary">Tạo địa điểm mới</span>
+          <span class="endpoint-chevron">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-desc">Chỉ <strong>Guide</strong> mới có thể tạo địa điểm. Cần JWT token với <code>role: "guide"</code>.</div>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Request Body</div>
+            <table class="params-table">
+              <thead><tr><th>Trường</th><th>Kiểu</th><th>Bắt buộc</th><th>Mô tả</th></tr></thead>
+              <tbody>
+                <tr><td><code class="param-name">name</code><span class="param-required">*</span></td><td><span class="param-type">string</span></td><td>✓</td><td>Tên địa điểm</td></tr>
+                <tr><td><code class="param-name">location</code><span class="param-required">*</span></td><td><span class="param-type">string</span></td><td>✓</td><td>Địa chỉ/vị trí</td></tr>
+                <tr><td><code class="param-name">category</code><span class="param-required">*</span></td><td><span class="param-type">string</span></td><td>✓</td><td>Một trong 9 categories hợp lệ</td></tr>
+                <tr><td><code class="param-name">description</code></td><td><span class="param-type">string</span></td><td></td><td>Mô tả chi tiết</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="try-section">
+            <div class="try-header">
+              <span class="try-title">🧪 Thử ngay (cần Guide token)</span>
+              <button class="try-btn" onclick="tryRequest('POST', '/api/places', document.getElementById('create-place-body').value, 'create-place-resp', true)">▶ Tạo</button>
+            </div>
+            <textarea class="try-input" id="create-place-body" rows="6">{
+  "name": "Địa điểm mới",
+  "description": "Mô tả về địa điểm...",
+  "location": "Hà Nội, Vietnam",
+  "category": "City"
+}</textarea>
+            <div class="try-response" id="create-place-resp"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PUT /places/:id -->
+      <div class="endpoint-card" id="ep-place-update">
+        <div class="endpoint-header" onclick="toggleEndpoint('ep-place-update')">
+          <span class="method-tag badge-put">PUT</span>
+          <span class="endpoint-path">/api/places/<span class="param">{id}</span></span>
+          <span class="endpoint-auth">🔒 Owner Only</span>
+          <span class="endpoint-summary">Cập nhật địa điểm</span>
+          <span class="endpoint-chevron">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-desc">Cập nhật thông tin địa điểm. Chỉ Guide sở hữu địa điểm mới có quyền. Có thể gửi một phần trường — trường không gửi sẽ giữ nguyên.</div>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Responses</div>
+            <div class="response-list">
+              <div class="response-item r-2xx"><div class="response-code">200</div><div class="response-desc">Cập nhật thành công — trả về place đã cập nhật</div></div>
+              <div class="response-item r-4xx"><div class="response-code">403</div><div class="response-desc">Không phải owner của địa điểm</div></div>
+              <div class="response-item r-4xx"><div class="response-code">404</div><div class="response-desc">Không tìm thấy địa điểm</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DELETE /places/:id -->
+      <div class="endpoint-card" id="ep-place-delete">
+        <div class="endpoint-header" onclick="toggleEndpoint('ep-place-delete')">
+          <span class="method-tag badge-delete">DELETE</span>
+          <span class="endpoint-path">/api/places/<span class="param">{id}</span></span>
+          <span class="endpoint-auth">🔒 Owner Only</span>
+          <span class="endpoint-summary">Xóa địa điểm</span>
+          <span class="endpoint-chevron">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-desc">Xóa địa điểm và toàn bộ ảnh (disk + DB) và bình luận liên quan. Không thể hoàn tác.</div>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Responses</div>
+            <div class="response-list">
+              <div class="response-item r-2xx"><div class="response-code">200</div><div class="response-desc">Xóa thành công</div></div>
+              <div class="response-item r-4xx"><div class="response-code">403</div><div class="response-desc">Không có quyền xóa</div></div>
+              <div class="response-item r-4xx"><div class="response-code">404</div><div class="response-desc">Không tìm thấy địa điểm</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════ IMAGES ════════════ -->
+    <section class="api-section" id="images-section">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(168,85,247,0.1)">🖼️</div>
+        <div>
+          <div class="section-title">Images</div>
+          <div class="section-desc">Upload và quản lý ảnh địa điểm (multipart/form-data)</div>
+        </div>
+      </div>
+
+      <!-- POST /places/:id/images -->
+      <div class="endpoint-card" id="ep-img-upload">
+        <div class="endpoint-header" onclick="toggleEndpoint('ep-img-upload')">
+          <span class="method-tag badge-post">POST</span>
+          <span class="endpoint-path">/api/places/<span class="param">{id}</span>/images</span>
+          <span class="endpoint-auth">🔒 Owner Only</span>
+          <span class="endpoint-summary">Upload ảnh</span>
+          <span class="endpoint-chevron">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-desc">Upload một hoặc nhiều ảnh cho địa điểm. Content-Type phải là <code>multipart/form-data</code>. Ảnh được truy cập tại <code>/uploads/&lt;filename&gt;</code>.</div>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Form Fields</div>
+            <table class="params-table">
+              <thead><tr><th>Field</th><th>Kiểu</th><th>Giới hạn</th><th>Mô tả</th></tr></thead>
+              <tbody>
+                <tr><td><code class="param-name">images</code><span class="param-required">*</span></td><td><span class="param-type">file[]</span></td><td>Tối đa 10 ảnh, 10MB/ảnh</td><td>.jpg .jpeg .png .gif .webp</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Ví dụ cURL</div>
+            <div class="code-block">
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+curl -X POST http://localhost:3000/api/places/{id}/images \
+  -H "Authorization: Bearer &lt;token&gt;" \
+  -F "images=@/path/to/photo.jpg" \
+  -F "images=@/path/to/photo2.jpg"</div>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Responses</div>
+            <div class="response-list">
+              <div class="response-item r-2xx"><div class="response-code">201</div><div class="response-desc">Upload thành công — trả về mảng images với id, filename</div></div>
+              <div class="response-item r-4xx"><div class="response-code">400</div><div class="response-desc">Không có ảnh nào hoặc sai định dạng</div></div>
+              <div class="response-item r-4xx"><div class="response-code">403</div><div class="response-desc">Không phải owner của địa điểm</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DELETE /places/:id/images/:imgId -->
+      <div class="endpoint-card" id="ep-img-delete">
+        <div class="endpoint-header" onclick="toggleEndpoint('ep-img-delete')">
+          <span class="method-tag badge-delete">DELETE</span>
+          <span class="endpoint-path">/api/places/<span class="param">{id}</span>/images/<span class="param">{imgId}</span></span>
+          <span class="endpoint-auth">🔒 Owner Only</span>
+          <span class="endpoint-summary">Xóa ảnh</span>
+          <span class="endpoint-chevron">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-desc">Xóa ảnh khỏi địa điểm. File sẽ bị xóa khỏi disk và record trong DB. Chỉ Guide sở hữu địa điểm mới có quyền.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════ COMMENTS ════════════ -->
+    <section class="api-section" id="comments-section">
+      <div class="section-header">
+        <div class="section-icon" style="background:rgba(34,197,94,0.1)">💬</div>
+        <div>
+          <div class="section-title">Comments & Ratings</div>
+          <div class="section-desc">Bình luận và đánh giá sao (1–5) cho địa điểm</div>
+        </div>
+      </div>
+
+      <!-- GET /places/:id/comments -->
+      <div class="endpoint-card" id="ep-comment-list">
+        <div class="endpoint-header" onclick="toggleEndpoint('ep-comment-list')">
+          <span class="method-tag badge-get">GET</span>
+          <span class="endpoint-path">/api/places/<span class="param">{id}</span>/comments</span>
+          <span class="endpoint-summary">Danh sách bình luận</span>
+          <span class="endpoint-chevron">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-desc">Lấy tất cả bình luận kèm thống kê <code>avg_rating</code> và <code>total</code>. Không cần đăng nhập.</div>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Response 200</div>
+            <div class="code-block">
+              <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+{
+  <span class="json-key">"success"</span>: <span class="json-bool">true</span>,
+  <span class="json-key">"data"</span>: {
+    <span class="json-key">"comments"</span>: [
+      {
+        <span class="json-key">"id"</span>: <span class="json-str">"uuid..."</span>,
+        <span class="json-key">"username"</span>: <span class="json-str">"traveller_demo"</span>,
+        <span class="json-key">"rating"</span>: <span class="json-num">5</span>,
+        <span class="json-key">"comment"</span>: <span class="json-str">"Tuyệt vời!"</span>,
+        <span class="json-key">"created_at"</span>: <span class="json-str">"2024-01-15T10:00:00"</span>
+      }
+    ],
+    <span class="json-key">"stats"</span>: {
+      <span class="json-key">"avg_rating"</span>: <span class="json-num">4.5</span>,
+      <span class="json-key">"total"</span>: <span class="json-num">10</span>
+    }
+  }
+}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- POST /places/:id/comments -->
+      <div class="endpoint-card" id="ep-comment-add">
+        <div class="endpoint-header" onclick="toggleEndpoint('ep-comment-add')">
+          <span class="method-tag badge-post">POST</span>
+          <span class="endpoint-path">/api/places/<span class="param">{id}</span>/comments</span>
+          <span class="endpoint-auth">🔒 Traveller Only</span>
+          <span class="endpoint-summary">Thêm bình luận</span>
+          <span class="endpoint-chevron">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-desc">Chỉ <strong>Traveller</strong> mới có thể bình luận. Sau khi thêm, <code>avg_rating</code> của địa điểm tự động cập nhật.</div>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Request Body</div>
+            <table class="params-table">
+              <thead><tr><th>Trường</th><th>Kiểu</th><th>Ràng buộc</th></tr></thead>
+              <tbody>
+                <tr><td><code class="param-name">rating</code><span class="param-required">*</span></td><td><span class="param-type">integer</span></td><td>1 đến 5</td></tr>
+                <tr><td><code class="param-name">comment</code><span class="param-required">*</span></td><td><span class="param-type">string</span></td><td>Tối thiểu 5 ký tự</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Responses</div>
+            <div class="response-list">
+              <div class="response-item r-2xx"><div class="response-code">201</div><div class="response-desc">Thêm thành công — trả về comment mới và avg_rating đã cập nhật</div></div>
+              <div class="response-item r-4xx"><div class="response-code">400</div><div class="response-desc">Rating không hợp lệ hoặc comment quá ngắn</div></div>
+              <div class="response-item r-4xx"><div class="response-code">403</div><div class="response-desc">Chỉ Traveller mới có thể bình luận</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DELETE /places/:id/comments/:commentId -->
+      <div class="endpoint-card" id="ep-comment-delete">
+        <div class="endpoint-header" onclick="toggleEndpoint('ep-comment-delete')">
+          <span class="method-tag badge-delete">DELETE</span>
+          <span class="endpoint-path">/api/places/<span class="param">{id}</span>/comments/<span class="param">{commentId}</span></span>
+          <span class="endpoint-auth">🔒 Author Only</span>
+          <span class="endpoint-summary">Xóa bình luận</span>
+          <span class="endpoint-chevron">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div class="ep-section">
+            <div class="ep-desc">Xóa bình luận của chính mình. Sau khi xóa, <code>avg_rating</code> địa điểm tự cập nhật lại.</div>
+          </div>
+          <div class="ep-section">
+            <div class="ep-section-title">Responses</div>
+            <div class="response-list">
+              <div class="response-item r-2xx"><div class="response-code">200</div><div class="response-desc">Xóa thành công</div></div>
+              <div class="response-item r-4xx"><div class="response-code">403</div><div class="response-desc">Không phải tác giả của bình luận</div></div>
+              <div class="response-item r-4xx"><div class="response-code">404</div><div class="response-desc">Không tìm thấy bình luận</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  const BASE = window.location.origin + '/api';
+  let savedToken = localStorage.getItem('tt_token') || '';
+
+  // Load token on page load
+  window.addEventListener('DOMContentLoaded', () => {
+    if (savedToken) {
+      document.getElementById('token-input').value = savedToken;
+      document.getElementById('token-status').classList.add('visible');
+    }
+  });
+
+  function saveToken() {
+    savedToken = document.getElementById('token-input').value.trim();
+    localStorage.setItem('tt_token', savedToken);
+    const status = document.getElementById('token-status');
+    status.classList.add('visible');
+    setTimeout(() => status.classList.remove('visible'), 3000);
+  }
+
+  function toggleEndpoint(id) {
+    const card = document.getElementById(id);
+    card.classList.toggle('expanded');
+  }
+
+  function scrollToSection(id) {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function copyText(text, el) {
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = el.textContent;
+      el.textContent = '✓ Đã copy!';
+      setTimeout(() => el.textContent = orig, 2000);
+    });
+  }
+
+  function copyCode(btn) {
+    const block = btn.parentElement;
+    const text = block.innerText.replace('Copy', '').replace('Đã copy!', '').trim();
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'Đã copy!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  function renderResponse(respEl, status, data, ms) {
+    const isOk = status >= 200 && status < 300;
+    const statusClass = isOk ? 'status-ok' : 'status-err';
+    const json = JSON.stringify(data, null, 2)
+      .replace(/("[\w@.-]+")\s*:/g, '<span class="json-key">$1</span>:')
+      .replace(/:\s*(".*?")/g, ': <span class="json-str">$1</span>')
+      .replace(/:\s*(\d+\.?\d*)/g, ': <span class="json-num">$1</span>')
+      .replace(/:\s*(true|false)/g, ': <span class="json-bool">$1</span>')
+      .replace(/:\s*(null)/g, ': <span class="json-null">$1</span>');
+
+    respEl.innerHTML = `
+      <div class="try-response-meta">
+        <span class="try-status ${statusClass}">${status}</span>
+        <span class="try-time">${ms}ms</span>
+      </div>
+      <div class="code-block" style="margin-top:0">${json}</div>
+    `;
+    respEl.classList.add('visible');
+  }
+
+  async function tryRequest(method, path, body, respId, withAuth = false) {
+    const respEl = document.getElementById(respId);
+    respEl.innerHTML = '<span style="color:var(--text-muted);font-size:13px">⏳ Đang gửi request...</span>';
+    respEl.classList.add('visible');
+
+    // Use custom URL if available
+    const urlInput = document.getElementById('places-list-url');
+    if (respId === 'places-list-resp' && urlInput) {
+      path = urlInput.value;
+    }
+
+    const url = path.startsWith('http') ? path : BASE.replace('/api', '') + path;
+    const headers = { 'Content-Type': 'application/json' };
+    if (withAuth && savedToken) headers['Authorization'] = `Bearer ${savedToken}`;
+
+    const t0 = Date.now();
+    try {
+      const opts = { method, headers };
+      if (body && method !== 'GET') opts.body = body;
+      const res = await fetch(url, opts);
+      const data = await res.json();
+      renderResponse(respEl, res.status, data, Date.now() - t0);
+    } catch (err) {
+      respEl.innerHTML = `<div class="response-item r-4xx"><div class="response-code">ERR</div><div class="response-desc">${err.message}</div></div>`;
+    }
+  }
+
+  async function tryLoginAndSave() {
+    await tryRequest('POST', '/api/auth/login', document.getElementById('login-body').value, 'login-resp');
+    // Auto-extract token
+    setTimeout(() => {
+      const code = document.querySelector('#login-resp .code-block');
+      if (code) {
+        try {
+          const text = code.innerText;
+          const match = text.match(/"token"\s*:\s*"([^"]+)"/);
+          if (match) {
+            savedToken = match[1];
+            localStorage.setItem('tt_token', savedToken);
+            document.getElementById('token-input').value = savedToken;
+            const status = document.getElementById('token-status');
+            status.classList.add('visible');
+            setTimeout(() => status.classList.remove('visible'), 3000);
+          }
+        } catch(e) {}
+      }
+    }, 800);
+  }
+
+  function tryPlaceDetail() {
+    const id = document.getElementById('place-id-input').value.trim();
+    if (!id) {
+      alert('Vui lòng nhập Place ID');
+      return;
+    }
+    tryRequest('GET', `/api/places/${id}`, null, 'place-detail-resp');
+  }
+
+  // Smooth active highlight in TOC on scroll
+  const sections = ['health-section', 'auth-section', 'places-section', 'images-section', 'comments-section'];
+  const tocLinks = document.querySelectorAll('.toc-item');
+
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY + 120;
+    for (const id of sections) {
+      const el = document.getElementById(id);
+      if (el && el.offsetTop <= y && el.offsetTop + el.offsetHeight > y) {
+        tocLinks.forEach(l => l.classList.remove('active'));
+        // approximate match
+        break;
+      }
+    }
+  });
+</script>
+</body>
+</html>

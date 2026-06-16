@@ -1,0 +1,2373 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 8,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "client/css/style.css",
+      "language": "css",
+      "fileCategory": "markup",
+      "totalLines": 849,
+      "nonEmptyLines": 785,
+      "metrics": {}
+    },
+    {
+      "path": "client/index.html",
+      "language": "html",
+      "fileCategory": "markup",
+      "totalLines": 382,
+      "nonEmptyLines": 346,
+      "metrics": {}
+    },
+    {
+      "path": "client/js/api.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 75,
+      "nonEmptyLines": 65,
+      "callGraph": [
+        {
+          "caller": "request",
+          "callee": "Auth.getToken",
+          "lineNumber": 11
+        },
+        {
+          "caller": "request",
+          "callee": "JSON.stringify",
+          "lineNumber": 17
+        },
+        {
+          "caller": "request",
+          "callee": "fetch",
+          "lineNumber": 20
+        },
+        {
+          "caller": "request",
+          "callee": "res.json",
+          "lineNumber": 21
+        },
+        {
+          "caller": "request",
+          "callee": "Auth.clearSession",
+          "lineNumber": 25
+        },
+        {
+          "caller": "request",
+          "callee": "UI.showToast",
+          "lineNumber": 26
+        },
+        {
+          "caller": "request",
+          "callee": "App.navigate",
+          "lineNumber": 27
+        },
+        {
+          "caller": "request",
+          "callee": "console.error",
+          "lineNumber": 33
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "client/js/app.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 237,
+      "nonEmptyLines": 206,
+      "callGraph": [
+        {
+          "caller": "showToast",
+          "callee": "document.createElement",
+          "lineNumber": 9
+        },
+        {
+          "caller": "showToast",
+          "callee": "document.getElementById('toast-container').prepend",
+          "lineNumber": 12
+        },
+        {
+          "caller": "showToast",
+          "callee": "document.getElementById",
+          "lineNumber": 12
+        },
+        {
+          "caller": "showToast",
+          "callee": "setTimeout",
+          "lineNumber": 13
+        },
+        {
+          "caller": "showToast",
+          "callee": "toast.classList.add",
+          "lineNumber": 13
+        },
+        {
+          "caller": "showToast",
+          "callee": "setTimeout",
+          "lineNumber": 13
+        },
+        {
+          "caller": "showToast",
+          "callee": "toast.remove",
+          "lineNumber": 13
+        },
+        {
+          "caller": "openModal",
+          "callee": "document.getElementById(id)?.classList.add",
+          "lineNumber": 17
+        },
+        {
+          "caller": "openModal",
+          "callee": "document.getElementById",
+          "lineNumber": 17
+        },
+        {
+          "caller": "closeModal",
+          "callee": "document.getElementById(id)?.classList.remove",
+          "lineNumber": 22
+        },
+        {
+          "caller": "closeModal",
+          "callee": "document.getElementById",
+          "lineNumber": 22
+        },
+        {
+          "caller": "openLightbox",
+          "callee": "document.getElementById",
+          "lineNumber": 38
+        },
+        {
+          "caller": "openLightbox",
+          "callee": "lb.querySelector",
+          "lineNumber": 39
+        },
+        {
+          "caller": "openLightbox",
+          "callee": "lb.classList.add",
+          "lineNumber": 40
+        },
+        {
+          "caller": "updateNavbar",
+          "callee": "Auth.getUser",
+          "lineNumber": 44
+        },
+        {
+          "caller": "updateNavbar",
+          "callee": "document.getElementById",
+          "lineNumber": 45
+        },
+        {
+          "caller": "updateNavbar",
+          "callee": "document.getElementById",
+          "lineNumber": 46
+        },
+        {
+          "caller": "updateNavbar",
+          "callee": "document.getElementById",
+          "lineNumber": 47
+        },
+        {
+          "caller": "updateNavbar",
+          "callee": "Auth.isLoggedIn",
+          "lineNumber": 49
+        },
+        {
+          "caller": "updateNavbar",
+          "callee": "Auth.isGuide",
+          "lineNumber": 52
+        },
+        {
+          "caller": "updateNavbar",
+          "callee": "document.getElementById",
+          "lineNumber": 54
+        },
+        {
+          "caller": "updateNavbar",
+          "callee": "user.username.charAt",
+          "lineNumber": 54
+        },
+        {
+          "caller": "updateNavbar",
+          "callee": "document.getElementById",
+          "lineNumber": 55
+        },
+        {
+          "caller": "updateNavbar",
+          "callee": "document.getElementById",
+          "lineNumber": 56
+        },
+        {
+          "caller": "navigate",
+          "callee": "Object.values(this.pages).forEach",
+          "lineNumber": 80
+        },
+        {
+          "caller": "navigate",
+          "callee": "Object.values",
+          "lineNumber": 80
+        },
+        {
+          "caller": "navigate",
+          "callee": "p.classList.remove",
+          "lineNumber": 80
+        },
+        {
+          "caller": "navigate",
+          "callee": "this.navigate",
+          "lineNumber": 84
+        },
+        {
+          "caller": "navigate",
+          "callee": "Auth.isLoggedIn",
+          "lineNumber": 87
+        },
+        {
+          "caller": "navigate",
+          "callee": "UI.showToast",
+          "lineNumber": 88
+        },
+        {
+          "caller": "navigate",
+          "callee": "UI.openModal",
+          "lineNumber": 89
+        },
+        {
+          "caller": "navigate",
+          "callee": "this.navigate",
+          "lineNumber": 90
+        },
+        {
+          "caller": "navigate",
+          "callee": "target.classList.add",
+          "lineNumber": 94
+        },
+        {
+          "caller": "navigate",
+          "callee": "window.scrollTo",
+          "lineNumber": 96
+        },
+        {
+          "caller": "navigate",
+          "callee": "document.querySelectorAll('.nav-links [data-page]').forEach",
+          "lineNumber": 99
+        },
+        {
+          "caller": "navigate",
+          "callee": "document.querySelectorAll",
+          "lineNumber": 99
+        },
+        {
+          "caller": "navigate",
+          "callee": "a.classList.toggle",
+          "lineNumber": 100
+        },
+        {
+          "caller": "navigate",
+          "callee": "Places.loadFeatured",
+          "lineNumber": 105
+        },
+        {
+          "caller": "navigate",
+          "callee": "document.getElementById",
+          "lineNumber": 109
+        },
+        {
+          "caller": "navigate",
+          "callee": "Places.loadSearchPage",
+          "lineNumber": 110
+        },
+        {
+          "caller": "navigate",
+          "callee": "Places.loadDetail",
+          "lineNumber": 112
+        },
+        {
+          "caller": "navigate",
+          "callee": "Auth.getUser",
+          "lineNumber": 114
+        },
+        {
+          "caller": "navigate",
+          "callee": "document.getElementById",
+          "lineNumber": 115
+        },
+        {
+          "caller": "navigate",
+          "callee": "document.getElementById",
+          "lineNumber": 116
+        },
+        {
+          "caller": "navigate",
+          "callee": "user.role.charAt(0).toUpperCase",
+          "lineNumber": 116
+        },
+        {
+          "caller": "navigate",
+          "callee": "user.role.charAt",
+          "lineNumber": 116
+        },
+        {
+          "caller": "navigate",
+          "callee": "user.role.slice",
+          "lineNumber": 116
+        },
+        {
+          "caller": "navigate",
+          "callee": "Places.loadDashboard",
+          "lineNumber": 117
+        },
+        {
+          "caller": "init",
+          "callee": "Auth.init",
+          "lineNumber": 122
+        },
+        {
+          "caller": "init",
+          "callee": "Places.loadCategories",
+          "lineNumber": 123
+        },
+        {
+          "caller": "init",
+          "callee": "UI.updateNavbar",
+          "lineNumber": 124
+        },
+        {
+          "caller": "init",
+          "callee": "this.bindEvents",
+          "lineNumber": 125
+        },
+        {
+          "caller": "init",
+          "callee": "this.navigate",
+          "lineNumber": 126
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('nav-home')?.addEventListener",
+          "lineNumber": 131
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 131
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "e.preventDefault",
+          "lineNumber": 131
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "this.navigate",
+          "lineNumber": 131
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('nav-search')?.addEventListener",
+          "lineNumber": 132
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 132
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "e.preventDefault",
+          "lineNumber": 132
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "this.navigate",
+          "lineNumber": 132
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('nav-dashboard')?.addEventListener",
+          "lineNumber": 133
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 133
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "e.preventDefault",
+          "lineNumber": 133
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "this.navigate",
+          "lineNumber": 133
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('nav-logout')?.addEventListener",
+          "lineNumber": 134
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 134
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "Auth.doLogout",
+          "lineNumber": 134
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('nav-login')?.addEventListener",
+          "lineNumber": 135
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 135
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "UI.openModal",
+          "lineNumber": 135
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('tab-login').click",
+          "lineNumber": 135
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 135
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('nav-register')?.addEventListener",
+          "lineNumber": 136
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 136
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "UI.openModal",
+          "lineNumber": 136
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('tab-register').click",
+          "lineNumber": 136
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 136
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.querySelectorAll('.modal-overlay').forEach",
+          "lineNumber": 139
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.querySelectorAll",
+          "lineNumber": 139
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "overlay.addEventListener",
+          "lineNumber": 140
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "UI.closeModal",
+          "lineNumber": 140
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.querySelectorAll('.modal-close').forEach",
+          "lineNumber": 142
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.querySelectorAll",
+          "lineNumber": 142
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "btn.addEventListener",
+          "lineNumber": 143
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "UI.closeModal",
+          "lineNumber": 143
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "btn.closest",
+          "lineNumber": 143
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.querySelectorAll('.tab-btn').forEach",
+          "lineNumber": 147
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.querySelectorAll",
+          "lineNumber": 147
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "btn.addEventListener",
+          "lineNumber": 148
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "btn.closest('.tabs').querySelectorAll('.tab-btn').forEach",
+          "lineNumber": 150
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "btn.closest('.tabs').querySelectorAll",
+          "lineNumber": 150
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "btn.closest",
+          "lineNumber": 150
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "b.classList.remove",
+          "lineNumber": 150
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "btn.classList.add",
+          "lineNumber": 151
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "btn.closest('.modal').querySelectorAll('.tab-content').forEach",
+          "lineNumber": 152
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "btn.closest('.modal').querySelectorAll",
+          "lineNumber": 152
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "btn.closest",
+          "lineNumber": 152
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "tc.classList.remove",
+          "lineNumber": 152
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById(`content-${target}`).classList.add",
+          "lineNumber": 153
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 153
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "bindAuthForms",
+          "lineNumber": 158
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('btn-hero-search')?.addEventListener",
+          "lineNumber": 161
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 161
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('hero-search-input').value.trim",
+          "lineNumber": 162
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 162
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 163
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "this.navigate",
+          "lineNumber": 164
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('hero-search-input')?.addEventListener",
+          "lineNumber": 166
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 166
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('btn-hero-search').click",
+          "lineNumber": 167
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 167
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('btn-search')?.addEventListener",
+          "lineNumber": 171
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 171
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('search-input').value.trim",
+          "lineNumber": 172
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 172
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 173
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "Places.loadSearchPage",
+          "lineNumber": 174
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('search-input')?.addEventListener",
+          "lineNumber": 176
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 176
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('btn-search').click",
+          "lineNumber": 177
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 177
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('cat-buttons')?.addEventListener",
+          "lineNumber": 181
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 181
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "e.target.closest",
+          "lineNumber": 182
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.querySelectorAll('.cat-btn').forEach",
+          "lineNumber": 184
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.querySelectorAll",
+          "lineNumber": 184
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "b.classList.remove",
+          "lineNumber": 184
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "btn.classList.add",
+          "lineNumber": 185
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 187
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('search-input').value.trim",
+          "lineNumber": 188
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 188
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "Places.loadSearchPage",
+          "lineNumber": 189
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 193
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "Places._categories.map(c => `<button class=\"cat-btn\" data-category=\"${c}\">${Places.categoryEmoji[c] || ''} ${c}</button>`).join",
+          "lineNumber": 196
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "Places._categories.map",
+          "lineNumber": 196
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('btn-add-place')?.addEventListener",
+          "lineNumber": 200
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 200
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "Places.openAddModal",
+          "lineNumber": 200
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('form-place')?.addEventListener",
+          "lineNumber": 201
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 201
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "Places.submitPlaceForm",
+          "lineNumber": 201
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('upload-input')?.addEventListener",
+          "lineNumber": 204
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 204
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "Places.handleFileSelect",
+          "lineNumber": 204
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('btn-upload')?.addEventListener",
+          "lineNumber": 205
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 205
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "Places.submitUpload",
+          "lineNumber": 205
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 208
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "zone.addEventListener",
+          "lineNumber": 210
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "e.preventDefault",
+          "lineNumber": 210
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "zone.classList.add",
+          "lineNumber": 210
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "zone.addEventListener",
+          "lineNumber": 211
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "zone.classList.remove",
+          "lineNumber": 211
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "zone.addEventListener",
+          "lineNumber": 212
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "e.preventDefault",
+          "lineNumber": 213
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "zone.classList.remove",
+          "lineNumber": 214
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 215
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')).forEach",
+          "lineNumber": 217
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "Array.from(e.dataTransfer.files).filter",
+          "lineNumber": 217
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "Array.from",
+          "lineNumber": 217
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "f.type.startsWith",
+          "lineNumber": 217
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "dt.items.add",
+          "lineNumber": 217
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "Places.handleFileSelect",
+          "lineNumber": 219
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('lightbox-close')?.addEventListener",
+          "lineNumber": 224
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 224
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('lightbox').classList.remove",
+          "lineNumber": 225
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 225
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('lightbox')?.addEventListener",
+          "lineNumber": 227
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 227
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById('lightbox').classList.remove",
+          "lineNumber": 228
+        },
+        {
+          "caller": "bindEvents",
+          "callee": "document.getElementById",
+          "lineNumber": 228
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "client/js/auth.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 116,
+      "nonEmptyLines": 100,
+      "functions": [
+        {
+          "name": "bindAuthForms",
+          "startLine": 86,
+          "endLine": 113,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "init",
+          "callee": "localStorage.getItem",
+          "lineNumber": 9
+        },
+        {
+          "caller": "init",
+          "callee": "localStorage.getItem",
+          "lineNumber": 10
+        },
+        {
+          "caller": "init",
+          "callee": "JSON.parse",
+          "lineNumber": 12
+        },
+        {
+          "caller": "init",
+          "callee": "this.clearSession",
+          "lineNumber": 12
+        },
+        {
+          "caller": "saveSession",
+          "callee": "localStorage.setItem",
+          "lineNumber": 25
+        },
+        {
+          "caller": "saveSession",
+          "callee": "localStorage.setItem",
+          "lineNumber": 26
+        },
+        {
+          "caller": "saveSession",
+          "callee": "JSON.stringify",
+          "lineNumber": 26
+        },
+        {
+          "caller": "clearSession",
+          "callee": "localStorage.removeItem",
+          "lineNumber": 32
+        },
+        {
+          "caller": "clearSession",
+          "callee": "localStorage.removeItem",
+          "lineNumber": 33
+        },
+        {
+          "caller": "doLogin",
+          "callee": "document.getElementById",
+          "lineNumber": 38
+        },
+        {
+          "caller": "doLogin",
+          "callee": "UI.setLoading",
+          "lineNumber": 39
+        },
+        {
+          "caller": "doLogin",
+          "callee": "Api.auth.login",
+          "lineNumber": 41
+        },
+        {
+          "caller": "doLogin",
+          "callee": "UI.setLoading",
+          "lineNumber": 42
+        },
+        {
+          "caller": "doLogin",
+          "callee": "UI.showToast",
+          "lineNumber": 45
+        },
+        {
+          "caller": "doLogin",
+          "callee": "this.saveSession",
+          "lineNumber": 49
+        },
+        {
+          "caller": "doLogin",
+          "callee": "UI.closeModal",
+          "lineNumber": 50
+        },
+        {
+          "caller": "doLogin",
+          "callee": "UI.showToast",
+          "lineNumber": 51
+        },
+        {
+          "caller": "doLogin",
+          "callee": "UI.updateNavbar",
+          "lineNumber": 52
+        },
+        {
+          "caller": "doLogin",
+          "callee": "App.navigate",
+          "lineNumber": 53
+        },
+        {
+          "caller": "doRegister",
+          "callee": "document.getElementById",
+          "lineNumber": 57
+        },
+        {
+          "caller": "doRegister",
+          "callee": "UI.setLoading",
+          "lineNumber": 58
+        },
+        {
+          "caller": "doRegister",
+          "callee": "Api.auth.register",
+          "lineNumber": 60
+        },
+        {
+          "caller": "doRegister",
+          "callee": "UI.setLoading",
+          "lineNumber": 61
+        },
+        {
+          "caller": "doRegister",
+          "callee": "UI.showToast",
+          "lineNumber": 64
+        },
+        {
+          "caller": "doRegister",
+          "callee": "this.saveSession",
+          "lineNumber": 68
+        },
+        {
+          "caller": "doRegister",
+          "callee": "UI.closeModal",
+          "lineNumber": 69
+        },
+        {
+          "caller": "doRegister",
+          "callee": "UI.showToast",
+          "lineNumber": 70
+        },
+        {
+          "caller": "doRegister",
+          "callee": "UI.updateNavbar",
+          "lineNumber": 71
+        },
+        {
+          "caller": "doRegister",
+          "callee": "App.navigate",
+          "lineNumber": 72
+        },
+        {
+          "caller": "doLogout",
+          "callee": "this.isLoggedIn",
+          "lineNumber": 76
+        },
+        {
+          "caller": "doLogout",
+          "callee": "Api.auth.logout",
+          "lineNumber": 77
+        },
+        {
+          "caller": "doLogout",
+          "callee": "this.clearSession",
+          "lineNumber": 78
+        },
+        {
+          "caller": "doLogout",
+          "callee": "UI.showToast",
+          "lineNumber": 79
+        },
+        {
+          "caller": "doLogout",
+          "callee": "UI.updateNavbar",
+          "lineNumber": 80
+        },
+        {
+          "caller": "doLogout",
+          "callee": "App.navigate",
+          "lineNumber": 81
+        },
+        {
+          "caller": "bindAuthForms",
+          "callee": "document.getElementById",
+          "lineNumber": 88
+        },
+        {
+          "caller": "bindAuthForms",
+          "callee": "loginForm.addEventListener",
+          "lineNumber": 90
+        },
+        {
+          "caller": "bindAuthForms",
+          "callee": "e.preventDefault",
+          "lineNumber": 91
+        },
+        {
+          "caller": "bindAuthForms",
+          "callee": "document.getElementById('login-email').value.trim",
+          "lineNumber": 92
+        },
+        {
+          "caller": "bindAuthForms",
+          "callee": "document.getElementById",
+          "lineNumber": 92
+        },
+        {
+          "caller": "bindAuthForms",
+          "callee": "document.getElementById",
+          "lineNumber": 93
+        },
+        {
+          "caller": "bindAuthForms",
+          "callee": "UI.showToast",
+          "lineNumber": 94
+        },
+        {
+          "caller": "bindAuthForms",
+          "callee": "Auth.doLogin",
+          "lineNumber": 95
+        },
+        {
+          "caller": "bindAuthForms",
+          "callee": "document.getElementById",
+          "lineNumber": 100
+        },
+        {
+          "caller": "bindAuthForms",
+          "callee": "registerForm.addEventListener",
+          "lineNumber": 102
+        },
+        {
+          "caller": "bindAuthForms",
+          "callee": "e.preventDefault",
+          "lineNumber": 103
+        },
+        {
+          "caller": "bindAuthForms",
+          "callee": "document.getElementById('reg-username').value.trim",
+          "lineNumber": 104
+        },
+        {
+          "caller": "bindAuthForms",
+          "callee": "document.getElementById",
+          "lineNumber": 104
+        },
+        {
+          "caller": "bindAuthForms",
+          "callee": "document.getElementById('reg-email').value.trim",
+          "lineNumber": 105
+        },
+        {
+          "caller": "bindAuthForms",
+          "callee": "document.getElementById",
+          "lineNumber": 105
+        },
+        {
+          "caller": "bindAuthForms",
+          "callee": "document.getElementById",
+          "lineNumber": 106
+        },
+        {
+          "caller": "bindAuthForms",
+          "callee": "document.getElementById",
+          "lineNumber": 107
+        },
+        {
+          "caller": "bindAuthForms",
+          "callee": "UI.showToast",
+          "lineNumber": 108
+        },
+        {
+          "caller": "bindAuthForms",
+          "callee": "UI.showToast",
+          "lineNumber": 109
+        },
+        {
+          "caller": "bindAuthForms",
+          "callee": "Auth.doRegister",
+          "lineNumber": 110
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "client/js/places.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 532,
+      "nonEmptyLines": 459,
+      "callGraph": [
+        {
+          "caller": "loadCategories",
+          "callee": "Api.places.categories",
+          "lineNumber": 20
+        },
+        {
+          "caller": "loadFeatured",
+          "callee": "document.getElementById",
+          "lineNumber": 26
+        },
+        {
+          "caller": "loadFeatured",
+          "callee": "Api.places.list",
+          "lineNumber": 30
+        },
+        {
+          "caller": "loadFeatured",
+          "callee": "res.data.places.map(p => this.renderCard(p)).join",
+          "lineNumber": 37
+        },
+        {
+          "caller": "loadFeatured",
+          "callee": "res.data.places.map",
+          "lineNumber": 37
+        },
+        {
+          "caller": "loadFeatured",
+          "callee": "this.renderCard",
+          "lineNumber": 37
+        },
+        {
+          "caller": "loadFeatured",
+          "callee": "this.bindCardClicks",
+          "lineNumber": 38
+        },
+        {
+          "caller": "loadFeatured",
+          "callee": "this.updateStats",
+          "lineNumber": 39
+        },
+        {
+          "caller": "updateStats",
+          "callee": "document.getElementById",
+          "lineNumber": 43
+        },
+        {
+          "caller": "loadSearchPage",
+          "callee": "document.getElementById",
+          "lineNumber": 53
+        },
+        {
+          "caller": "loadSearchPage",
+          "callee": "Api.places.list",
+          "lineNumber": 57
+        },
+        {
+          "caller": "loadSearchPage",
+          "callee": "document.getElementById",
+          "lineNumber": 67
+        },
+        {
+          "caller": "loadSearchPage",
+          "callee": "document.getElementById",
+          "lineNumber": 72
+        },
+        {
+          "caller": "loadSearchPage",
+          "callee": "places.map(p => this.renderCard(p)).join",
+          "lineNumber": 76
+        },
+        {
+          "caller": "loadSearchPage",
+          "callee": "places.map",
+          "lineNumber": 76
+        },
+        {
+          "caller": "loadSearchPage",
+          "callee": "this.renderCard",
+          "lineNumber": 76
+        },
+        {
+          "caller": "loadSearchPage",
+          "callee": "this.bindCardClicks",
+          "lineNumber": 77
+        },
+        {
+          "caller": "loadSearchPage",
+          "callee": "this.renderPagination",
+          "lineNumber": 78
+        },
+        {
+          "caller": "renderPagination",
+          "callee": "document.getElementById",
+          "lineNumber": 82
+        },
+        {
+          "caller": "renderCard",
+          "callee": "this.renderStars",
+          "lineNumber": 100
+        },
+        {
+          "caller": "renderCard",
+          "callee": "this.esc",
+          "lineNumber": 113
+        },
+        {
+          "caller": "renderCard",
+          "callee": "this.esc",
+          "lineNumber": 114
+        },
+        {
+          "caller": "renderCard",
+          "callee": "this.esc",
+          "lineNumber": 115
+        },
+        {
+          "caller": "renderCard",
+          "callee": "place.avg_rating.toFixed",
+          "lineNumber": 119
+        },
+        {
+          "caller": "renderCard",
+          "callee": "this.esc",
+          "lineNumber": 122
+        },
+        {
+          "caller": "bindCardClicks",
+          "callee": "container.querySelectorAll('.place-card').forEach",
+          "lineNumber": 129
+        },
+        {
+          "caller": "bindCardClicks",
+          "callee": "container.querySelectorAll",
+          "lineNumber": 129
+        },
+        {
+          "caller": "navigate",
+          "callee": "App.navigate",
+          "lineNumber": 130
+        },
+        {
+          "caller": "bindCardClicks",
+          "callee": "card.addEventListener",
+          "lineNumber": 131
+        },
+        {
+          "caller": "bindCardClicks",
+          "callee": "card.addEventListener",
+          "lineNumber": 132
+        },
+        {
+          "caller": "bindCardClicks",
+          "callee": "navigate",
+          "lineNumber": 132
+        },
+        {
+          "caller": "renderStars",
+          "callee": "Math.round",
+          "lineNumber": 137
+        },
+        {
+          "caller": "renderStars",
+          "callee": "'★'.repeat",
+          "lineNumber": 138
+        },
+        {
+          "caller": "renderStars",
+          "callee": "'☆'.repeat",
+          "lineNumber": 138
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "document.getElementById",
+          "lineNumber": 144
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "Api.places.get",
+          "lineNumber": 148
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "Auth.isLoggedIn",
+          "lineNumber": 156
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "Auth.getUser",
+          "lineNumber": 156
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "this.esc",
+          "lineNumber": 162
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "this.esc",
+          "lineNumber": 165
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "this.esc",
+          "lineNumber": 166
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "this.esc",
+          "lineNumber": 168
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "place.avg_rating.toFixed",
+          "lineNumber": 169
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "this.esc",
+          "lineNumber": 170
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "this.esc",
+          "lineNumber": 190
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "images.map(img => `\n                    <div class=\"gallery-item\">\n                      <img src=\"/uploads/${img.filename}\" alt=\"${this.esc(img.caption || place.name)}\" onclick=\"UI.openLightbox('/uploads/${img.filename}')\">\n                      ${isOwner ? `<button class=\"gallery-item-delete\" onclick=\"Places.deleteImage('${place.id}','${img.id}')\" title=\"Delete image\">×</button>` : ''}\n                    </div>\n                  `).join",
+          "lineNumber": 205
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "images.map",
+          "lineNumber": 205
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "this.esc",
+          "lineNumber": 207
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "Auth.isTraveller",
+          "lineNumber": 226
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "Auth.isLoggedIn",
+          "lineNumber": 246
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "comments.map(c => this.renderComment(c)).join",
+          "lineNumber": 253
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "comments.map",
+          "lineNumber": 253
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "this.renderComment",
+          "lineNumber": 253
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "this.esc",
+          "lineNumber": 270
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "this.esc",
+          "lineNumber": 274
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "this.esc",
+          "lineNumber": 278
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "place.avg_rating.toFixed",
+          "lineNumber": 283
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "this.renderStars",
+          "lineNumber": 285
+        },
+        {
+          "caller": "loadDetail",
+          "callee": "page.querySelector",
+          "lineNumber": 301
+        },
+        {
+          "caller": "renderComment",
+          "callee": "Auth.isLoggedIn",
+          "lineNumber": 308
+        },
+        {
+          "caller": "renderComment",
+          "callee": "Auth.getUser",
+          "lineNumber": 308
+        },
+        {
+          "caller": "renderComment",
+          "callee": "new Date(c.created_at).toLocaleDateString",
+          "lineNumber": 309
+        },
+        {
+          "caller": "renderComment",
+          "callee": "c.username.charAt",
+          "lineNumber": 314
+        },
+        {
+          "caller": "renderComment",
+          "callee": "this.esc",
+          "lineNumber": 316
+        },
+        {
+          "caller": "renderComment",
+          "callee": "this.renderStars",
+          "lineNumber": 321
+        },
+        {
+          "caller": "renderComment",
+          "callee": "this.esc",
+          "lineNumber": 325
+        },
+        {
+          "caller": "submitComment",
+          "callee": "e.preventDefault",
+          "lineNumber": 330
+        },
+        {
+          "caller": "submitComment",
+          "callee": "document.querySelector",
+          "lineNumber": 331
+        },
+        {
+          "caller": "submitComment",
+          "callee": "document.getElementById('comment-text').value.trim",
+          "lineNumber": 332
+        },
+        {
+          "caller": "submitComment",
+          "callee": "document.getElementById",
+          "lineNumber": 332
+        },
+        {
+          "caller": "submitComment",
+          "callee": "document.getElementById",
+          "lineNumber": 333
+        },
+        {
+          "caller": "submitComment",
+          "callee": "UI.showToast",
+          "lineNumber": 335
+        },
+        {
+          "caller": "submitComment",
+          "callee": "UI.showToast",
+          "lineNumber": 336
+        },
+        {
+          "caller": "submitComment",
+          "callee": "UI.setLoading",
+          "lineNumber": 338
+        },
+        {
+          "caller": "submitComment",
+          "callee": "Api.comments.add",
+          "lineNumber": 339
+        },
+        {
+          "caller": "submitComment",
+          "callee": "parseInt",
+          "lineNumber": 339
+        },
+        {
+          "caller": "submitComment",
+          "callee": "UI.setLoading",
+          "lineNumber": 340
+        },
+        {
+          "caller": "submitComment",
+          "callee": "UI.showToast",
+          "lineNumber": 342
+        },
+        {
+          "caller": "submitComment",
+          "callee": "UI.showToast",
+          "lineNumber": 344
+        },
+        {
+          "caller": "submitComment",
+          "callee": "document.getElementById",
+          "lineNumber": 345
+        },
+        {
+          "caller": "submitComment",
+          "callee": "document.getElementById",
+          "lineNumber": 348
+        },
+        {
+          "caller": "submitComment",
+          "callee": "list.querySelector",
+          "lineNumber": 349
+        },
+        {
+          "caller": "submitComment",
+          "callee": "empty.remove",
+          "lineNumber": 350
+        },
+        {
+          "caller": "submitComment",
+          "callee": "list.insertAdjacentHTML",
+          "lineNumber": 351
+        },
+        {
+          "caller": "submitComment",
+          "callee": "this.renderComment",
+          "lineNumber": 351
+        },
+        {
+          "caller": "deleteComment",
+          "callee": "confirm",
+          "lineNumber": 355
+        },
+        {
+          "caller": "deleteComment",
+          "callee": "Api.comments.delete",
+          "lineNumber": 356
+        },
+        {
+          "caller": "deleteComment",
+          "callee": "UI.showToast",
+          "lineNumber": 357
+        },
+        {
+          "caller": "deleteComment",
+          "callee": "document.getElementById(`comment-${commentId}`)?.remove",
+          "lineNumber": 358
+        },
+        {
+          "caller": "deleteComment",
+          "callee": "document.getElementById",
+          "lineNumber": 358
+        },
+        {
+          "caller": "deleteComment",
+          "callee": "UI.showToast",
+          "lineNumber": 359
+        },
+        {
+          "caller": "loadDashboard",
+          "callee": "Auth.isLoggedIn",
+          "lineNumber": 364
+        },
+        {
+          "caller": "loadDashboard",
+          "callee": "App.navigate",
+          "lineNumber": 364
+        },
+        {
+          "caller": "loadDashboard",
+          "callee": "Auth.getUser",
+          "lineNumber": 365
+        },
+        {
+          "caller": "loadDashboard",
+          "callee": "Api.places.list",
+          "lineNumber": 368
+        },
+        {
+          "caller": "loadDashboard",
+          "callee": "places.reduce",
+          "lineNumber": 370
+        },
+        {
+          "caller": "loadDashboard",
+          "callee": "(places.reduce((s, p) => s + (p.avg_rating || 0), 0) / places.length).toFixed",
+          "lineNumber": 371
+        },
+        {
+          "caller": "loadDashboard",
+          "callee": "places.reduce",
+          "lineNumber": 371
+        },
+        {
+          "caller": "loadDashboard",
+          "callee": "document.getElementById",
+          "lineNumber": 373
+        },
+        {
+          "caller": "loadDashboard",
+          "callee": "document.getElementById",
+          "lineNumber": 374
+        },
+        {
+          "caller": "loadDashboard",
+          "callee": "document.getElementById",
+          "lineNumber": 375
+        },
+        {
+          "caller": "loadDashboard",
+          "callee": "document.getElementById",
+          "lineNumber": 381
+        },
+        {
+          "caller": "loadDashboard",
+          "callee": "places.map(p => {\n      const emoji = this.categoryEmoji[p.category] || '🌍';\n      const thumb = p.thumbnail ? `<img src=\"/uploads/${p.thumbnail}\" alt=\"${this.esc(p.name)}\" style=\"width:56px;height:56px;object-fit:cover;border-radius:10px\">` : `<div style=\"width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#1e1b4b,#312e81);display:flex;align-items:center;justify-content:center;font-size:1.5rem\">${emoji}</div>`;\n      return `\n        <div style=\"display:flex;align-items:center;gap:16px;padding:16px;background:var(--bg-card2);border:1px solid var(--border);border-radius:var(--radius-md);margin-bottom:12px;transition:var(--transition)\" class=\"place-list-item\">\n          ${thumb}\n          <div style=\"flex:1;min-width:0\">\n            <div style=\"font-weight:700;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis\">${this.esc(p.name)}</div>\n            <div style=\"font-size:0.8rem;color:var(--text-muted)\">📍 ${this.esc(p.location)} · ${emoji} ${p.category}</div>\n            <div style=\"font-size:0.8rem;color:var(--text-dim);margin-top:2px\">⭐ ${p.avg_rating ? p.avg_rating.toFixed(1) : 'No ratings'} · ${p.rating_count || 0} reviews</div>\n          </div>\n          <div style=\"display:flex;gap:8px;flex-shrink:0\">\n            <button class=\"btn btn-ghost btn-sm\" onclick=\"App.navigate('detail',{id:'${p.id}'})\">View</button>\n            <button class=\"btn btn-ghost btn-sm\" onclick=\"Places.openEditModal('${p.id}')\">Edit</button>\n            <button class=\"btn btn-danger btn-sm\" onclick=\"Places.deletePlace('${p.id}')\">Delete</button>\n          </div>\n        </div>`;\n    }).join",
+          "lineNumber": 389
+        },
+        {
+          "caller": "loadDashboard",
+          "callee": "places.map",
+          "lineNumber": 389
+        },
+        {
+          "caller": "loadDashboard",
+          "callee": "this.esc",
+          "lineNumber": 391
+        },
+        {
+          "caller": "loadDashboard",
+          "callee": "this.esc",
+          "lineNumber": 396
+        },
+        {
+          "caller": "loadDashboard",
+          "callee": "this.esc",
+          "lineNumber": 397
+        },
+        {
+          "caller": "loadDashboard",
+          "callee": "p.avg_rating.toFixed",
+          "lineNumber": 398
+        },
+        {
+          "caller": "openAddModal",
+          "callee": "Auth.isGuide",
+          "lineNumber": 411
+        },
+        {
+          "caller": "openAddModal",
+          "callee": "UI.showToast",
+          "lineNumber": 411
+        },
+        {
+          "caller": "openAddModal",
+          "callee": "this.populatePlaceForm",
+          "lineNumber": 413
+        },
+        {
+          "caller": "openAddModal",
+          "callee": "UI.openModal",
+          "lineNumber": 414
+        },
+        {
+          "caller": "openEditModal",
+          "callee": "Api.places.get",
+          "lineNumber": 419
+        },
+        {
+          "caller": "openEditModal",
+          "callee": "UI.showToast",
+          "lineNumber": 420
+        },
+        {
+          "caller": "openEditModal",
+          "callee": "this.populatePlaceForm",
+          "lineNumber": 421
+        },
+        {
+          "caller": "openEditModal",
+          "callee": "UI.openModal",
+          "lineNumber": 422
+        },
+        {
+          "caller": "populatePlaceForm",
+          "callee": "document.getElementById",
+          "lineNumber": 426
+        },
+        {
+          "caller": "populatePlaceForm",
+          "callee": "document.getElementById",
+          "lineNumber": 427
+        },
+        {
+          "caller": "populatePlaceForm",
+          "callee": "document.getElementById",
+          "lineNumber": 428
+        },
+        {
+          "caller": "populatePlaceForm",
+          "callee": "document.getElementById",
+          "lineNumber": 429
+        },
+        {
+          "caller": "populatePlaceForm",
+          "callee": "document.getElementById",
+          "lineNumber": 431
+        },
+        {
+          "caller": "populatePlaceForm",
+          "callee": "this._categories.map(c => `<option value=\"${c}\" ${place?.category===c?'selected':''}>${c}</option>`).join",
+          "lineNumber": 432
+        },
+        {
+          "caller": "populatePlaceForm",
+          "callee": "this._categories.map",
+          "lineNumber": 432
+        },
+        {
+          "caller": "submitPlaceForm",
+          "callee": "e.preventDefault",
+          "lineNumber": 436
+        },
+        {
+          "caller": "submitPlaceForm",
+          "callee": "document.getElementById",
+          "lineNumber": 437
+        },
+        {
+          "caller": "submitPlaceForm",
+          "callee": "document.getElementById('place-name').value.trim",
+          "lineNumber": 439
+        },
+        {
+          "caller": "submitPlaceForm",
+          "callee": "document.getElementById",
+          "lineNumber": 439
+        },
+        {
+          "caller": "submitPlaceForm",
+          "callee": "document.getElementById('place-location').value.trim",
+          "lineNumber": 440
+        },
+        {
+          "caller": "submitPlaceForm",
+          "callee": "document.getElementById",
+          "lineNumber": 440
+        },
+        {
+          "caller": "submitPlaceForm",
+          "callee": "document.getElementById('place-description').value.trim",
+          "lineNumber": 441
+        },
+        {
+          "caller": "submitPlaceForm",
+          "callee": "document.getElementById",
+          "lineNumber": 441
+        },
+        {
+          "caller": "submitPlaceForm",
+          "callee": "document.getElementById",
+          "lineNumber": 442
+        },
+        {
+          "caller": "submitPlaceForm",
+          "callee": "UI.showToast",
+          "lineNumber": 445
+        },
+        {
+          "caller": "submitPlaceForm",
+          "callee": "UI.setLoading",
+          "lineNumber": 447
+        },
+        {
+          "caller": "submitPlaceForm",
+          "callee": "Api.places.update",
+          "lineNumber": 449
+        },
+        {
+          "caller": "submitPlaceForm",
+          "callee": "Api.places.create",
+          "lineNumber": 450
+        },
+        {
+          "caller": "submitPlaceForm",
+          "callee": "UI.setLoading",
+          "lineNumber": 451
+        },
+        {
+          "caller": "submitPlaceForm",
+          "callee": "UI.showToast",
+          "lineNumber": 453
+        },
+        {
+          "caller": "submitPlaceForm",
+          "callee": "UI.showToast",
+          "lineNumber": 455
+        },
+        {
+          "caller": "submitPlaceForm",
+          "callee": "UI.closeModal",
+          "lineNumber": 456
+        },
+        {
+          "caller": "submitPlaceForm",
+          "callee": "this.loadDashboard",
+          "lineNumber": 457
+        },
+        {
+          "caller": "deletePlace",
+          "callee": "confirm",
+          "lineNumber": 461
+        },
+        {
+          "caller": "deletePlace",
+          "callee": "Api.places.delete",
+          "lineNumber": 462
+        },
+        {
+          "caller": "deletePlace",
+          "callee": "UI.showToast",
+          "lineNumber": 463
+        },
+        {
+          "caller": "deletePlace",
+          "callee": "UI.showToast",
+          "lineNumber": 464
+        },
+        {
+          "caller": "deletePlace",
+          "callee": "this.loadDashboard",
+          "lineNumber": 465
+        },
+        {
+          "caller": "deletePlace",
+          "callee": "App.navigate",
+          "lineNumber": 466
+        },
+        {
+          "caller": "openUploadModal",
+          "callee": "document.getElementById",
+          "lineNumber": 476
+        },
+        {
+          "caller": "openUploadModal",
+          "callee": "document.getElementById",
+          "lineNumber": 477
+        },
+        {
+          "caller": "openUploadModal",
+          "callee": "UI.openModal",
+          "lineNumber": 478
+        },
+        {
+          "caller": "handleFileSelect",
+          "callee": "Array.from",
+          "lineNumber": 482
+        },
+        {
+          "caller": "handleFileSelect",
+          "callee": "[...this._uploadFiles, ...files].slice",
+          "lineNumber": 483
+        },
+        {
+          "caller": "handleFileSelect",
+          "callee": "this.renderUploadPreview",
+          "lineNumber": 484
+        },
+        {
+          "caller": "renderUploadPreview",
+          "callee": "document.getElementById",
+          "lineNumber": 488
+        },
+        {
+          "caller": "renderUploadPreview",
+          "callee": "this._uploadFiles.map((f, i) => `\n      <div class=\"upload-preview-item\">\n        <img src=\"${URL.createObjectURL(f)}\" alt=\"preview\">\n        <button class=\"upload-preview-remove\" onclick=\"Places.removeUploadFile(${i})\">×</button>\n      </div>`).join",
+          "lineNumber": 489
+        },
+        {
+          "caller": "renderUploadPreview",
+          "callee": "this._uploadFiles.map",
+          "lineNumber": 489
+        },
+        {
+          "caller": "renderUploadPreview",
+          "callee": "URL.createObjectURL",
+          "lineNumber": 491
+        },
+        {
+          "caller": "removeUploadFile",
+          "callee": "this._uploadFiles.splice",
+          "lineNumber": 497
+        },
+        {
+          "caller": "removeUploadFile",
+          "callee": "this.renderUploadPreview",
+          "lineNumber": 498
+        },
+        {
+          "caller": "submitUpload",
+          "callee": "UI.showToast",
+          "lineNumber": 502
+        },
+        {
+          "caller": "submitUpload",
+          "callee": "document.getElementById",
+          "lineNumber": 503
+        },
+        {
+          "caller": "submitUpload",
+          "callee": "this._uploadFiles.forEach",
+          "lineNumber": 505
+        },
+        {
+          "caller": "submitUpload",
+          "callee": "form.append",
+          "lineNumber": 505
+        },
+        {
+          "caller": "submitUpload",
+          "callee": "UI.setLoading",
+          "lineNumber": 507
+        },
+        {
+          "caller": "submitUpload",
+          "callee": "Api.places.uploadImages",
+          "lineNumber": 508
+        },
+        {
+          "caller": "submitUpload",
+          "callee": "UI.setLoading",
+          "lineNumber": 509
+        },
+        {
+          "caller": "submitUpload",
+          "callee": "UI.showToast",
+          "lineNumber": 511
+        },
+        {
+          "caller": "submitUpload",
+          "callee": "UI.showToast",
+          "lineNumber": 513
+        },
+        {
+          "caller": "submitUpload",
+          "callee": "UI.closeModal",
+          "lineNumber": 514
+        },
+        {
+          "caller": "submitUpload",
+          "callee": "this.loadDetail",
+          "lineNumber": 515
+        },
+        {
+          "caller": "deleteImage",
+          "callee": "confirm",
+          "lineNumber": 519
+        },
+        {
+          "caller": "deleteImage",
+          "callee": "Api.places.deleteImage",
+          "lineNumber": 520
+        },
+        {
+          "caller": "deleteImage",
+          "callee": "UI.showToast",
+          "lineNumber": 521
+        },
+        {
+          "caller": "deleteImage",
+          "callee": "UI.showToast",
+          "lineNumber": 522
+        },
+        {
+          "caller": "deleteImage",
+          "callee": "this.loadDetail",
+          "lineNumber": 523
+        },
+        {
+          "caller": "esc",
+          "callee": "String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace",
+          "lineNumber": 528
+        },
+        {
+          "caller": "esc",
+          "callee": "String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace",
+          "lineNumber": 528
+        },
+        {
+          "caller": "esc",
+          "callee": "String(str).replace(/&/g,'&amp;').replace",
+          "lineNumber": 528
+        },
+        {
+          "caller": "esc",
+          "callee": "String(str).replace",
+          "lineNumber": 528
+        },
+        {
+          "caller": "esc",
+          "callee": "String",
+          "lineNumber": 528
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "implementation_plan.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 136,
+      "nonEmptyLines": 106,
+      "sections": [
+        {
+          "heading": "Travel Suite — Enterprise Web Application",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Overview",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Architecture",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "Tech Stack",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "Use Case → API Mapping",
+          "level": 2,
+          "line": 44
+        },
+        {
+          "heading": "Database Schema",
+          "level": 2,
+          "line": 63
+        },
+        {
+          "heading": "users",
+          "level": 3,
+          "line": 65
+        },
+        {
+          "heading": "places",
+          "level": 3,
+          "line": 68
+        },
+        {
+          "heading": "images",
+          "level": 3,
+          "line": 71
+        },
+        {
+          "heading": "comments",
+          "level": 3,
+          "line": 74
+        },
+        {
+          "heading": "Frontend Pages / Screens",
+          "level": 2,
+          "line": 79
+        },
+        {
+          "heading": "Proposed Changes",
+          "level": 2,
+          "line": 90
+        },
+        {
+          "heading": "[NEW] server/package.json",
+          "level": 3,
+          "line": 92
+        },
+        {
+          "heading": "[NEW] server/server.js — Main Express app + CORS + static serving",
+          "level": 3,
+          "line": 93
+        },
+        {
+          "heading": "[NEW] server/routes/auth.js — Register, Login, Logout endpoints",
+          "level": 3,
+          "line": 94
+        },
+        {
+          "heading": "[NEW] server/routes/places.js — CRUD places + image upload",
+          "level": 3,
+          "line": 95
+        },
+        {
+          "heading": "[NEW] server/routes/comments.js — Rate & Comment endpoints",
+          "level": 3,
+          "line": 96
+        },
+        {
+          "heading": "[NEW] server/db/init.js — SQLite schema initialization",
+          "level": 3,
+          "line": 97
+        },
+        {
+          "heading": "[NEW] client/index.html — SPA shell",
+          "level": 3,
+          "line": 98
+        },
+        {
+          "heading": "[NEW] client/css/style.css — Premium design system",
+          "level": 3,
+          "line": 99
+        },
+        {
+          "heading": "[NEW] client/js/app.js — SPA router",
+          "level": 3,
+          "line": 100
+        },
+        {
+          "heading": "[NEW] client/js/auth.js — Auth UI logic",
+          "level": 3,
+          "line": 101
+        },
+        {
+          "heading": "[NEW] client/js/places.js — Places UI logic",
+          "level": 3,
+          "line": 102
+        },
+        {
+          "heading": "[NEW] client/js/comments.js — Rating & Comment UI",
+          "level": 3,
+          "line": 103
+        },
+        {
+          "heading": "Verification Plan",
+          "level": 2,
+          "line": 107
+        },
+        {
+          "heading": "Automated Tests",
+          "level": 3,
+          "line": 109
+        },
+        {
+          "heading": "Manual Verification (All Use Cases)",
+          "level": 3,
+          "line": 113
+        },
+        {
+          "heading": "Open Questions",
+          "level": 2,
+          "line": 127
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 28
+      }
+    },
+    {
+      "path": "server/package.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 23,
+      "nonEmptyLines": 23,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "main",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "scripts",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "dependencies",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "devDependencies",
+          "level": 1,
+          "line": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "projectRoot": "C:\\Webservice",
+  "batchFiles": [
+    {
+      "path": "server/db/init.js",
+      "language": "javascript",
+      "sizeLines": 165,
+      "fileCategory": "code"
+    },
+    {
+      "path": "server/middleware/auth.js",
+      "language": "javascript",
+      "sizeLines": 78,
+      "fileCategory": "code"
+    },
+    {
+      "path": "server/routes/auth.js",
+      "language": "javascript",
+      "sizeLines": 103,
+      "fileCategory": "code"
+    },
+    {
+      "path": "server/routes/comments.js",
+      "language": "javascript",
+      "sizeLines": 105,
+      "fileCategory": "code"
+    },
+    {
+      "path": "server/routes/places.js",
+      "language": "javascript",
+      "sizeLines": 201,
+      "fileCategory": "code"
+    },
+    {
+      "path": "server/server.js",
+      "language": "javascript",
+      "sizeLines": 59,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "server/db/init.js": [],
+    "server/middleware/auth.js": ["server/db/init.js"],
+    "server/routes/auth.js": ["server/db/init.js", "server/middleware/auth.js"],
+    "server/routes/comments.js": ["server/db/init.js", "server/middleware/auth.js"],
+    "server/routes/places.js": ["server/db/init.js", "server/middleware/auth.js"],
+    "server/server.js": ["server/db/init.js", "server/routes/auth.js", "server/routes/places.js", "server/routes/comments.js"]
+  }
+}

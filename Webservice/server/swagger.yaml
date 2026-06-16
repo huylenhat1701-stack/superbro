@@ -1,0 +1,1082 @@
+openapi: 3.0.3
+info:
+  title: Travel Suite API
+  description: |
+    ## REST Web Service cho ứng dụng du lịch Travel Suite
+
+    API hỗ trợ hai loại người dùng:
+    - **Guide** – đăng địa điểm, upload ảnh, sửa/xóa địa điểm của mình
+    - **Traveller** – tìm kiếm, xem thông tin, đánh giá và bình luận địa điểm
+
+    ### Xác thực
+    Sử dụng **JWT Bearer Token**. Sau khi đăng nhập / đăng ký, lưu `token` từ response và gửi theo header:
+    ```
+    Authorization: Bearer <token>
+    ```
+
+    ### Demo Accounts
+    | Role | Email | Password |
+    |------|-------|----------|
+    | Guide | guide@travel.com | guide123 |
+    | Traveller | traveller@travel.com | traveller123 |
+  version: "1.0.0"
+  contact:
+    name: Travel Suite Support
+
+servers:
+  - url: http://localhost:3000/api
+    description: Local Development Server
+
+tags:
+  - name: Health
+    description: Kiểm tra trạng thái server
+  - name: Auth
+    description: Đăng ký, đăng nhập, đăng xuất và thông tin người dùng
+  - name: Places
+    description: CRUD địa điểm du lịch và tìm kiếm
+  - name: Images
+    description: Upload và quản lý ảnh địa điểm
+  - name: Comments
+    description: Bình luận và đánh giá địa điểm
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token nhận được sau khi đăng nhập
+
+  schemas:
+    # ─── Common ──────────────────────────────────────
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "Operation successful"
+
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: "Error description"
+
+    # ─── User ────────────────────────────────────────
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+        username:
+          type: string
+          example: "guide_demo"
+        email:
+          type: string
+          format: email
+          example: "guide@travel.com"
+        role:
+          type: string
+          enum: [guide, traveller]
+          example: "guide"
+        avatar:
+          type: string
+          nullable: true
+          example: null
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-01-15T08:30:00"
+
+    AuthResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            token:
+              type: string
+              example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+            user:
+              $ref: '#/components/schemas/User'
+
+    # ─── Place ───────────────────────────────────────
+    Place:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+        name:
+          type: string
+          example: "Hội An Ancient Town"
+        description:
+          type: string
+          example: "A beautifully preserved trading port with lantern-lit streets..."
+        location:
+          type: string
+          example: "Quảng Nam, Vietnam"
+        category:
+          type: string
+          enum: [Heritage, Nature, Adventure, Beach, City, Mountain, Food, Culture, Other]
+          example: "Heritage"
+        guide_id:
+          type: string
+          format: uuid
+        guide_name:
+          type: string
+          example: "guide_demo"
+        avg_rating:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 5
+          example: 4.3
+        rating_count:
+          type: integer
+          example: 12
+        cover_image:
+          type: string
+          nullable: true
+        thumbnail:
+          type: string
+          nullable: true
+          example: "abc123.jpg"
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    PlaceDetail:
+      allOf:
+        - $ref: '#/components/schemas/Place'
+        - type: object
+          properties:
+            guide_email:
+              type: string
+              format: email
+
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+          example: 42
+        page:
+          type: integer
+          example: 1
+        limit:
+          type: integer
+          example: 12
+        pages:
+          type: integer
+          example: 4
+
+    # ─── Image ───────────────────────────────────────
+    Image:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        place_id:
+          type: string
+          format: uuid
+        filename:
+          type: string
+          example: "9f8e7d6c-5b4a-3210-fedc-ba9876543210.jpg"
+        caption:
+          type: string
+          example: ""
+        uploaded_at:
+          type: string
+          format: date-time
+
+    # ─── Comment ─────────────────────────────────────
+    Comment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        place_id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        username:
+          type: string
+          example: "traveller_demo"
+        role:
+          type: string
+          enum: [guide, traveller]
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+          example: 4
+        comment:
+          type: string
+          example: "Địa điểm rất đẹp và yên bình!"
+        created_at:
+          type: string
+          format: date-time
+
+    CommentStats:
+      type: object
+      properties:
+        avg_rating:
+          type: number
+          format: float
+          example: 4.2
+        total:
+          type: integer
+          example: 15
+
+paths:
+  # ════════════════════════════════════════════════════
+  # HEALTH
+  # ════════════════════════════════════════════════════
+  /health:
+    get:
+      tags: [Health]
+      summary: Health check
+      description: Kiểm tra server đang hoạt động bình thường
+      operationId: getHealth
+      responses:
+        "200":
+          description: Server đang hoạt động
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Travel Suite API running"
+                  version:
+                    type: string
+                    example: "1.0.0"
+                  timestamp:
+                    type: string
+                    format: date-time
+
+  # ════════════════════════════════════════════════════
+  # AUTH
+  # ════════════════════════════════════════════════════
+  /auth/register:
+    post:
+      tags: [Auth]
+      summary: Đăng ký tài khoản mới
+      description: |
+        Tạo tài khoản người dùng mới với vai trò **guide** hoặc **traveller**.
+        Trả về JWT token ngay sau khi đăng ký thành công.
+      operationId: register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [username, email, password, role]
+              properties:
+                username:
+                  type: string
+                  example: "nguyen_van_a"
+                email:
+                  type: string
+                  format: email
+                  example: "vana@example.com"
+                password:
+                  type: string
+                  minLength: 6
+                  example: "secret123"
+                  description: Tối thiểu 6 ký tự
+                role:
+                  type: string
+                  enum: [guide, traveller]
+                  example: "traveller"
+      responses:
+        "201":
+          description: Đăng ký thành công
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        "400":
+          description: Dữ liệu không hợp lệ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missingFields:
+                  summary: Thiếu trường bắt buộc
+                  value:
+                    success: false
+                    message: "All fields required: username, email, password, role"
+                invalidRole:
+                  summary: Role không hợp lệ
+                  value:
+                    success: false
+                    message: 'Role must be "guide" or "traveller"'
+                shortPassword:
+                  summary: Mật khẩu quá ngắn
+                  value:
+                    success: false
+                    message: "Password must be at least 6 characters"
+        "409":
+          description: Email hoặc username đã tồn tại
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                success: false
+                message: "Email or username already registered"
+
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Đăng nhập
+      description: |
+        Xác thực người dùng bằng email và mật khẩu.
+        Trả về JWT token có hiệu lực **7 ngày**.
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: "guide@travel.com"
+                password:
+                  type: string
+                  example: "guide123"
+      responses:
+        "200":
+          description: Đăng nhập thành công
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        "400":
+          description: Thiếu email hoặc mật khẩu
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: Sai email hoặc mật khẩu
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                success: false
+                message: "Invalid email or password"
+
+  /auth/logout:
+    post:
+      tags: [Auth]
+      summary: Đăng xuất
+      description: |
+        Vô hiệu hóa JWT token hiện tại bằng cách thêm vào blacklist.
+        Token sẽ không còn dùng được sau khi logout.
+      operationId: logout
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Đăng xuất thành công
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+              example:
+                success: true
+                message: "Logged out successfully"
+        "401":
+          description: Chưa đăng nhập hoặc token hết hạn
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /auth/me:
+    get:
+      tags: [Auth]
+      summary: Lấy thông tin người dùng hiện tại
+      description: Trả về thông tin chi tiết của người dùng đang đăng nhập.
+      operationId: getMe
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Thông tin người dùng
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      user:
+                        $ref: '#/components/schemas/User'
+        "401":
+          description: Chưa xác thực
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Không tìm thấy user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  # ════════════════════════════════════════════════════
+  # PLACES
+  # ════════════════════════════════════════════════════
+  /places:
+    get:
+      tags: [Places]
+      summary: Tìm kiếm / Lấy danh sách địa điểm
+      description: |
+        Lấy danh sách địa điểm với phân trang và bộ lọc.
+        Hỗ trợ tìm kiếm theo từ khoá trong tên, mô tả, và địa chỉ.
+        Không cần đăng nhập.
+      operationId: getPlaces
+      parameters:
+        - name: q
+          in: query
+          description: Từ khoá tìm kiếm (tìm trong name, description, location)
+          schema:
+            type: string
+            example: "Hội An"
+        - name: category
+          in: query
+          description: Lọc theo danh mục
+          schema:
+            type: string
+            enum: [Heritage, Nature, Adventure, Beach, City, Mountain, Food, Culture, Other]
+        - name: guide_id
+          in: query
+          description: Lọc theo ID của guide (để xem các địa điểm của 1 guide cụ thể)
+          schema:
+            type: string
+            format: uuid
+        - name: page
+          in: query
+          description: Số trang (bắt đầu từ 1)
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+        - name: limit
+          in: query
+          description: Số địa điểm mỗi trang
+          schema:
+            type: integer
+            default: 12
+            minimum: 1
+            maximum: 100
+      responses:
+        "200":
+          description: Danh sách địa điểm
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      places:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Place'
+                      pagination:
+                        $ref: '#/components/schemas/Pagination'
+
+    post:
+      tags: [Places]
+      summary: Tạo địa điểm mới
+      description: |
+        Chỉ **Guide** mới có thể tạo địa điểm mới.
+        Cần gửi JWT token trong header Authorization.
+      operationId: createPlace
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, location, category]
+              properties:
+                name:
+                  type: string
+                  example: "Phú Quốc Island"
+                description:
+                  type: string
+                  example: "Hòn đảo ngọc với bãi biển cát trắng và nước biển xanh trong..."
+                location:
+                  type: string
+                  example: "Kiên Giang, Vietnam"
+                category:
+                  type: string
+                  enum: [Heritage, Nature, Adventure, Beach, City, Mountain, Food, Culture, Other]
+                  example: "Beach"
+      responses:
+        "201":
+          description: Tạo địa điểm thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Place created"
+                  data:
+                    type: object
+                    properties:
+                      place:
+                        $ref: '#/components/schemas/Place'
+        "400":
+          description: Thiếu trường bắt buộc hoặc category không hợp lệ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: Chưa đăng nhập
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "403":
+          description: Không phải Guide
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                success: false
+                message: "Access restricted to: guide"
+
+  /places/categories:
+    get:
+      tags: [Places]
+      summary: Lấy danh sách categories
+      description: Trả về tất cả các danh mục địa điểm hợp lệ.
+      operationId: getCategories
+      responses:
+        "200":
+          description: Danh sách categories
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      categories:
+                        type: array
+                        items:
+                          type: string
+                        example: [Heritage, Nature, Adventure, Beach, City, Mountain, Food, Culture, Other]
+
+  /places/{id}:
+    get:
+      tags: [Places]
+      summary: Lấy chi tiết một địa điểm
+      description: |
+        Trả về đầy đủ thông tin địa điểm bao gồm:
+        - Thông tin cơ bản và guide
+        - Danh sách ảnh
+        - Bình luận và đánh giá
+      operationId: getPlaceById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: UUID của địa điểm
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Chi tiết địa điểm
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      place:
+                        $ref: '#/components/schemas/PlaceDetail'
+                      images:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Image'
+                      comments:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Comment'
+        "404":
+          description: Không tìm thấy địa điểm
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    put:
+      tags: [Places]
+      summary: Cập nhật thông tin địa điểm
+      description: |
+        Chỉ **Guide** sở hữu địa điểm mới có thể cập nhật.
+        Có thể gửi một phần hoặc toàn bộ các trường — các trường không gửi sẽ giữ nguyên giá trị cũ.
+      operationId: updatePlace
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: UUID của địa điểm
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Hội An Ancient Town - Updated"
+                description:
+                  type: string
+                location:
+                  type: string
+                category:
+                  type: string
+                  enum: [Heritage, Nature, Adventure, Beach, City, Mountain, Food, Culture, Other]
+      responses:
+        "200":
+          description: Cập nhật thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Place updated"
+                  data:
+                    type: object
+                    properties:
+                      place:
+                        $ref: '#/components/schemas/Place'
+        "403":
+          description: Không có quyền — không phải owner
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Không tìm thấy địa điểm
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      tags: [Places]
+      summary: Xóa địa điểm
+      description: |
+        Chỉ **Guide** sở hữu địa điểm mới có thể xóa.
+        Xóa toàn bộ ảnh trên disk, bình luận và ảnh trong database liên quan.
+      operationId: deletePlace
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: UUID của địa điểm
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Xóa thành công
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+              example:
+                success: true
+                message: "Place deleted"
+        "403":
+          description: Không có quyền
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Không tìm thấy địa điểm
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  # ════════════════════════════════════════════════════
+  # IMAGES
+  # ════════════════════════════════════════════════════
+  /places/{id}/images:
+    post:
+      tags: [Images]
+      summary: Upload ảnh cho địa điểm
+      description: |
+        Chỉ **Guide** sở hữu địa điểm mới có thể upload ảnh.
+
+        **Định dạng hỗ trợ:** `.jpg`, `.jpeg`, `.png`, `.gif`, `.webp`
+        **Giới hạn:** Tối đa 10 ảnh / request, mỗi ảnh tối đa **10MB**
+
+        Ảnh được lưu tại `server/uploads/` và truy cập qua `/uploads/<filename>`.
+      operationId: uploadImages
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: UUID của địa điểm
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [images]
+              properties:
+                images:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                  description: Một hoặc nhiều file ảnh (tối đa 10)
+      responses:
+        "201":
+          description: Upload thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "3 image(s) uploaded"
+                  data:
+                    type: object
+                    properties:
+                      images:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Image'
+        "400":
+          description: Không có ảnh nào được gửi hoặc định dạng không hợp lệ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "403":
+          description: Không có quyền upload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /places/{id}/images/{imgId}:
+    delete:
+      tags: [Images]
+      summary: Xóa ảnh khỏi địa điểm
+      description: |
+        Chỉ **Guide** sở hữu địa điểm mới có thể xóa ảnh.
+        File ảnh sẽ bị xóa khỏi disk cùng với record trong database.
+      operationId: deleteImage
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: UUID của địa điểm
+          schema:
+            type: string
+            format: uuid
+        - name: imgId
+          in: path
+          required: true
+          description: UUID của ảnh
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Xóa ảnh thành công
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+              example:
+                success: true
+                message: "Image deleted"
+        "403":
+          description: Không có quyền
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Không tìm thấy ảnh
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  # ════════════════════════════════════════════════════
+  # COMMENTS
+  # ════════════════════════════════════════════════════
+  /places/{id}/comments:
+    get:
+      tags: [Comments]
+      summary: Lấy danh sách bình luận của địa điểm
+      description: Trả về toàn bộ bình luận và thống kê đánh giá trung bình. Không cần đăng nhập.
+      operationId: getComments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: UUID của địa điểm
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Danh sách bình luận và thống kê
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      comments:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Comment'
+                      stats:
+                        $ref: '#/components/schemas/CommentStats'
+        "404":
+          description: Không tìm thấy địa điểm
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      tags: [Comments]
+      summary: Thêm bình luận và đánh giá
+      description: |
+        Chỉ **Traveller** mới có thể bình luận.
+        Sau khi thêm bình luận, điểm đánh giá trung bình (`avg_rating`) của địa điểm sẽ được tự động cập nhật.
+      operationId: addComment
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: UUID của địa điểm
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [rating, comment]
+              properties:
+                rating:
+                  type: integer
+                  minimum: 1
+                  maximum: 5
+                  example: 4
+                  description: Đánh giá từ 1 (tệ) đến 5 (tuyệt vời)
+                comment:
+                  type: string
+                  minLength: 5
+                  example: "Địa điểm rất đẹp, không gian yên tĩnh và văn hóa phong phú!"
+      responses:
+        "201":
+          description: Thêm bình luận thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Comment added"
+                  data:
+                    type: object
+                    properties:
+                      comment:
+                        $ref: '#/components/schemas/Comment'
+                      avg_rating:
+                        type: number
+                        example: 4.2
+        "400":
+          description: Dữ liệu không hợp lệ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missingFields:
+                  value:
+                    success: false
+                    message: "Rating and comment required"
+                invalidRating:
+                  value:
+                    success: false
+                    message: "Rating must be 1–5"
+                shortComment:
+                  value:
+                    success: false
+                    message: "Comment must be at least 5 characters"
+        "403":
+          description: Chỉ Traveller mới có thể bình luận
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /places/{id}/comments/{commentId}:
+    delete:
+      tags: [Comments]
+      summary: Xóa bình luận
+      description: |
+        Người dùng chỉ có thể xóa bình luận **của chính mình**.
+        Sau khi xóa, `avg_rating` của địa điểm sẽ được tự động tính lại.
+      operationId: deleteComment
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: UUID của địa điểm
+          schema:
+            type: string
+            format: uuid
+        - name: commentId
+          in: path
+          required: true
+          description: UUID của bình luận
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Xóa bình luận thành công
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+              example:
+                success: true
+                message: "Comment deleted"
+        "403":
+          description: Không có quyền xóa bình luận này
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Không tìm thấy bình luận
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'

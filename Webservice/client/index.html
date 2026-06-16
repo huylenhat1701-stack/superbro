@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TravelSuite — Discover Amazing Places</title>
+  <meta name="description" content="TravelSuite is your ultimate travel companion. Search, discover, and share amazing destinations worldwide. Guides share places, travelers explore and review.">
+  <meta property="og:title" content="TravelSuite — Discover Amazing Places">
+  <meta property="og:description" content="Find your next adventure. Search places, read reviews, and share your travel experiences.">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌏</text></svg>">
+</head>
+<body>
+
+<!-- ═══════════════════════════════ NAVBAR ═══════════════════════════════ -->
+<nav id="navbar">
+  <div class="nav-brand">
+    <div class="logo-icon">🌏</div>
+    <span>TravelSuite</span>
+  </div>
+
+  <div class="nav-links">
+    <a href="#" data-page="home" id="nav-home" class="active">Home</a>
+    <a href="#" data-page="search" id="nav-search">Explore</a>
+    <button id="nav-dashboard" class="hide-mobile" style="display:none">Dashboard</button>
+
+    <!-- Logged-out state -->
+    <div id="nav-auth" style="display:flex;gap:8px">
+      <button id="nav-login" class="btn-primary-sm">Login</button>
+      <button id="nav-register" class="hide-mobile">Register</button>
+    </div>
+
+    <!-- Logged-in state -->
+    <div id="nav-user" style="display:none" class="nav-user-info">
+      <div class="nav-avatar" id="nav-avatar">U</div>
+      <span class="nav-username" id="nav-username">User</span>
+      <span class="nav-role-badge" id="nav-role-badge">user</span>
+      <button id="nav-logout" class="btn btn-ghost btn-sm">Logout</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════ PAGE: HOME ═══════════════════════════════ -->
+<div id="page-home" class="page active">
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-bg-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">Your Ultimate Travel Companion</div>
+        <h1 class="hero-title">
+          Discover the World's<br>
+          <span class="gradient-text">Hidden Gems</span>
+        </h1>
+        <p class="hero-subtitle">
+          Explore curated destinations from expert guides. Find breathtaking places,
+          stunning photos, and authentic reviews from fellow travelers.
+        </p>
+
+        <div class="hero-search">
+          <input type="text" id="hero-search-input" placeholder="Search destinations, cities, attractions..." aria-label="Search places">
+          <select id="hero-category-select" aria-label="Filter by category">
+            <option value="">All Categories</option>
+            <option>Heritage</option>
+            <option>Nature</option>
+            <option>Adventure</option>
+            <option>Beach</option>
+            <option>City</option>
+            <option>Mountain</option>
+            <option>Food</option>
+            <option>Culture</option>
+          </select>
+          <button class="btn-search" id="btn-hero-search">🔍 Search</button>
+        </div>
+
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-number" id="stat-places">—</div>
+            <div class="hero-stat-label">Destinations</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-number">∞</div>
+            <div class="hero-stat-label">Adventures</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-number">24/7</div>
+            <div class="hero-stat-label">Explore</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Places -->
+  <section style="padding-top:80px">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Featured</div>
+        <h2 class="section-title">Trending Destinations</h2>
+        <p class="section-subtitle">Explore the most popular places shared by our expert guides</p>
+      </div>
+      <div class="places-grid" id="featured-places">
+        <div class="spinner"></div>
+      </div>
+      <div style="text-align:center;margin-top:40px">
+        <button class="btn btn-ghost btn-lg" onclick="App.navigate('search')">View All Destinations →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section style="background:var(--bg-card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">How It Works</div>
+        <h2 class="section-title">Start Your Journey</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px">
+        <div style="text-align:center;padding:28px 20px">
+          <div style="font-size:3rem;margin-bottom:16px">📝</div>
+          <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:8px">1. Register</h3>
+          <p style="color:var(--text-muted);font-size:0.9rem">Create a free account as a Guide or Traveller to unlock full features.</p>
+        </div>
+        <div style="text-align:center;padding:28px 20px">
+          <div style="font-size:3rem;margin-bottom:16px">🗺️</div>
+          <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:8px">2. Explore</h3>
+          <p style="color:var(--text-muted);font-size:0.9rem">Search and discover amazing destinations added by expert local guides.</p>
+        </div>
+        <div style="text-align:center;padding:28px 20px">
+          <div style="font-size:3rem;margin-bottom:16px">📸</div>
+          <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:8px">3. Share</h3>
+          <p style="color:var(--text-muted);font-size:0.9rem">Guides add places with photos & info. Travelers rate and review.</p>
+        </div>
+        <div style="text-align:center;padding:28px 20px">
+          <div style="font-size:3rem;margin-bottom:16px">⭐</div>
+          <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:8px">4. Review</h3>
+          <p style="color:var(--text-muted);font-size:0.9rem">Leave ratings and comments to help other travelers find the best spots.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section>
+    <div class="container" style="text-align:center">
+      <h2 class="section-title">Ready to Explore?</h2>
+      <p style="color:var(--text-muted);margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto">Join thousands of guides and travelers discovering the world together on TravelSuite.</p>
+      <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap">
+        <button class="btn btn-primary btn-lg" onclick="UI.openModal('modal-auth');document.getElementById('tab-register').click()">Get Started Free</button>
+        <button class="btn btn-ghost btn-lg" onclick="App.navigate('search')">Browse Destinations</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span style="font-size:1.5rem">🌏</span> TravelSuite
+        </div>
+        <div class="footer-copy">© 2024 TravelSuite. Built with ❤️ for travelers worldwide.</div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════ PAGE: SEARCH ═══════════════════════════════ -->
+<div id="page-search" class="page" style="padding-top:80px">
+  <div class="container" style="padding-top:40px">
+    <div class="section-header" style="text-align:left;margin-bottom:32px">
+      <h1 class="section-title" style="font-size:2rem">Explore Destinations</h1>
+    </div>
+
+    <!-- Search bar -->
+    <div style="display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap">
+      <input type="text" id="search-input" class="form-input" placeholder="Search places, locations..." style="flex:1;min-width:200px" aria-label="Search">
+      <select id="cat-filter" class="form-input" style="max-width:180px" aria-label="Category filter">
+        <option value="">All Categories</option>
+      </select>
+      <button class="btn btn-primary" id="btn-search">Search</button>
+    </div>
+
+    <!-- Category buttons -->
+    <div class="categories-bar" id="cat-buttons"></div>
+
+    <!-- Result count -->
+    <div style="color:var(--text-muted);font-size:0.9rem;margin-bottom:24px" id="result-count"></div>
+
+    <!-- Results grid -->
+    <div class="places-grid" id="search-results">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Pagination -->
+    <div id="search-pagination"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ PAGE: DETAIL ═══════════════════════════════ -->
+<div id="page-detail" class="page">
+  <!-- Dynamically rendered by Places.loadDetail() -->
+</div>
+
+<!-- ═══════════════════════════════ PAGE: DASHBOARD ═══════════════════════════════ -->
+<div id="page-dashboard" class="page">
+  <div class="container" style="padding-top:40px;padding-bottom:80px">
+
+    <div class="dashboard-header">
+      <h1 class="dashboard-welcome" id="dash-welcome">Welcome back!</h1>
+      <div class="dashboard-role" id="dash-role">Guide Account</div>
+      <div class="dashboard-stats">
+        <div class="stat-card">
+          <div class="stat-card-number" id="dash-stat-places">0</div>
+          <div class="stat-card-label">My Places</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-number" id="dash-stat-reviews">0</div>
+          <div class="stat-card-label">Total Reviews</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-number" id="dash-stat-avg">—</div>
+          <div class="stat-card-label">Avg Rating</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-toolbar">
+      <h2 style="font-size:1.2rem;font-weight:700">My Places</h2>
+      <button class="btn btn-primary" id="btn-add-place">+ Add New Place</button>
+    </div>
+
+    <div id="my-places-list">
+      <div class="spinner"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ MODALS ═══════════════════════════════ -->
+
+<!-- Auth Modal -->
+<div id="modal-auth" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Authentication">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title">Welcome to TravelSuite 🌏</h2>
+      <button class="modal-close" aria-label="Close">×</button>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="login" id="tab-login">Login</button>
+      <button class="tab-btn" data-tab="register" id="tab-register">Register</button>
+    </div>
+
+    <!-- Login Tab -->
+    <div class="tab-content active" id="content-login">
+      <form id="form-login" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="login-email">Email</label>
+          <input type="email" id="login-email" class="form-input" placeholder="your@email.com" autocomplete="email" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="login-password">Password</label>
+          <input type="password" id="login-password" class="form-input" placeholder="Your password" autocomplete="current-password" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full" id="btn-login">Login</button>
+        <p style="text-align:center;margin-top:16px;font-size:0.85rem;color:var(--text-dim)">
+          Demo: <strong>guide@travel.com</strong> / guide123
+        </p>
+      </form>
+    </div>
+
+    <!-- Register Tab -->
+    <div class="tab-content" id="content-register">
+      <form id="form-register" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="reg-username">Username</label>
+          <input type="text" id="reg-username" class="form-input" placeholder="Choose a username" autocomplete="username" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="reg-email">Email</label>
+          <input type="email" id="reg-email" class="form-input" placeholder="your@email.com" autocomplete="email" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="reg-password">Password</label>
+          <input type="password" id="reg-password" class="form-input" placeholder="Min. 6 characters" autocomplete="new-password" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="reg-role">I am a...</label>
+          <select id="reg-role" class="form-input" required>
+            <option value="">Select your role</option>
+            <option value="traveller">🧳 Traveller — I want to explore and review places</option>
+            <option value="guide">🗺️ Guide — I want to share and post places</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full" id="btn-register">Create Account</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Add / Edit Place Modal -->
+<div id="modal-place" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Place form">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <h2 class="modal-title" id="modal-place-title">Add New Place</h2>
+      <button class="modal-close" aria-label="Close">×</button>
+    </div>
+
+    <form id="form-place" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="place-name">Place Name *</label>
+        <input type="text" id="place-name" class="form-input" placeholder="e.g. Ha Long Bay" required>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="place-location">Location *</label>
+          <input type="text" id="place-location" class="form-input" placeholder="City, Country" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="place-category">Category *</label>
+          <select id="place-category" class="form-input" required></select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="place-description">Description</label>
+        <textarea id="place-description" class="form-input" rows="4" placeholder="Describe this place — what makes it special?"></textarea>
+      </div>
+      <div style="display:flex;gap:12px;justify-content:flex-end">
+        <button type="button" class="btn btn-ghost modal-close">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="btn-save-place">Save Place</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Upload Images Modal -->
+<div id="modal-upload" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Upload images">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <h2 class="modal-title">📸 Upload Photos</h2>
+      <button class="modal-close" aria-label="Close">×</button>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Select Images (max 10)</label>
+      <div class="upload-zone" id="upload-zone">
+        <input type="file" id="upload-input" accept="image/*" multiple>
+        <div class="upload-icon">🖼️</div>
+        <div class="upload-text">Click or drag & drop images here</div>
+        <div class="upload-hint">JPG, PNG, GIF, WebP up to 10MB each</div>
+      </div>
+      <div class="upload-preview" id="upload-preview"></div>
+    </div>
+
+    <div style="display:flex;gap:12px;justify-content:flex-end">
+      <button class="btn btn-ghost modal-close">Cancel</button>
+      <button class="btn btn-accent" id="btn-upload">Upload Photos</button>
+    </div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close lightbox">×</button>
+  <img src="" alt="Full size image">
+</div>
+
+<!-- Toast Container -->
+<div id="toast-container" aria-live="polite"></div>
+
+<!-- Scripts -->
+<script src="/js/api.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/places.js"></script>
+<script src="/js/app.js"></script>
+
+</body>
+</html>

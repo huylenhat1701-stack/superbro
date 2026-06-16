@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "louvain",
+  "totalFiles": 14,
+  "totalBatches": 2,
+  "exportsByPath": {
+    "client/js/api.js": [],
+    "client/js/app.js": [],
+    "client/js/auth.js": [],
+    "client/js/places.js": [],
+    "server/db/init.js": [],
+    "server/middleware/auth.js": [],
+    "server/routes/auth.js": [],
+    "server/routes/comments.js": [],
+    "server/routes/places.js": [],
+    "server/server.js": []
+  },
+  "batches": [
+    {
+      "batchIndex": 1,
+      "files": [
+        {
+          "path": "server/db/init.js",
+          "language": "javascript",
+          "sizeLines": 165,
+          "fileCategory": "code"
+        },
+        {
+          "path": "server/middleware/auth.js",
+          "language": "javascript",
+          "sizeLines": 78,
+          "fileCategory": "code"
+        },
+        {
+          "path": "server/routes/auth.js",
+          "language": "javascript",
+          "sizeLines": 103,
+          "fileCategory": "code"
+        },
+        {
+          "path": "server/routes/comments.js",
+          "language": "javascript",
+          "sizeLines": 105,
+          "fileCategory": "code"
+        },
+        {
+          "path": "server/routes/places.js",
+          "language": "javascript",
+          "sizeLines": 201,
+          "fileCategory": "code"
+        },
+        {
+          "path": "server/server.js",
+          "language": "javascript",
+          "sizeLines": 59,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "server/db/init.js": [],
+        "server/middleware/auth.js": [
+          "server/db/init.js"
+        ],
+        "server/routes/auth.js": [
+          "server/db/init.js",
+          "server/middleware/auth.js"
+        ],
+        "server/routes/comments.js": [
+          "server/db/init.js",
+          "server/middleware/auth.js"
+        ],
+        "server/routes/places.js": [
+          "server/db/init.js",
+          "server/middleware/auth.js"
+        ],
+        "server/server.js": [
+          "server/db/init.js",
+          "server/routes/auth.js",
+          "server/routes/places.js",
+          "server/routes/comments.js"
+        ]
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 2,
+      "files": [
+        {
+          "path": "client/css/style.css",
+          "language": "css",
+          "sizeLines": 1050,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "client/index.html",
+          "language": "html",
+          "sizeLines": 383,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "client/js/api.js",
+          "language": "javascript",
+          "sizeLines": 83,
+          "fileCategory": "code"
+        },
+        {
+          "path": "client/js/app.js",
+          "language": "javascript",
+          "sizeLines": 257,
+          "fileCategory": "code"
+        },
+        {
+          "path": "client/js/auth.js",
+          "language": "javascript",
+          "sizeLines": 124,
+          "fileCategory": "code"
+        },
+        {
+          "path": "client/js/places.js",
+          "language": "javascript",
+          "sizeLines": 533,
+          "fileCategory": "code"
+        },
+        {
+          "path": "implementation_plan.md",
+          "language": "markdown",
+          "sizeLines": 125,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "server/package.json",
+          "language": "json",
+          "sizeLines": 20,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        "client/css/style.css": [],
+        "client/index.html": [],
+        "client/js/api.js": [],
+        "client/js/app.js": [],
+        "client/js/auth.js": [],
+        "client/js/places.js": [],
+        "implementation_plan.md": [],
+        "server/package.json": []
+      },
+      "neighborMap": {}
+    }
+  ]
+}

@@ -1,0 +1,542 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "server/db/init.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 175,
+      "nonEmptyLines": 152,
+      "functions": [
+        {
+          "name": "initDB",
+          "startLine": 80,
+          "endLine": 173,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "DB",
+          "startLine": 14,
+          "endLine": 78,
+          "methods": [
+            "constructor",
+            "exec",
+            "pragma",
+            "prepare",
+            "transaction",
+            "_save"
+          ],
+          "properties": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "exec",
+          "callee": "this._db.run",
+          "lineNumber": 20
+        },
+        {
+          "caller": "exec",
+          "callee": "this._save",
+          "lineNumber": 21
+        },
+        {
+          "caller": "run",
+          "callee": "self._db.run",
+          "lineNumber": 32
+        },
+        {
+          "caller": "run",
+          "callee": "self._save",
+          "lineNumber": 33
+        },
+        {
+          "caller": "get",
+          "callee": "self._db.prepare",
+          "lineNumber": 37
+        },
+        {
+          "caller": "get",
+          "callee": "stmt.bind",
+          "lineNumber": 38
+        },
+        {
+          "caller": "get",
+          "callee": "stmt.step",
+          "lineNumber": 39
+        },
+        {
+          "caller": "get",
+          "callee": "stmt.getAsObject",
+          "lineNumber": 40
+        },
+        {
+          "caller": "get",
+          "callee": "stmt.free",
+          "lineNumber": 41
+        },
+        {
+          "caller": "get",
+          "callee": "stmt.free",
+          "lineNumber": 44
+        },
+        {
+          "caller": "all",
+          "callee": "self._db.prepare",
+          "lineNumber": 48
+        },
+        {
+          "caller": "all",
+          "callee": "stmt.bind",
+          "lineNumber": 49
+        },
+        {
+          "caller": "all",
+          "callee": "stmt.step",
+          "lineNumber": 51
+        },
+        {
+          "caller": "all",
+          "callee": "rows.push",
+          "lineNumber": 51
+        },
+        {
+          "caller": "all",
+          "callee": "stmt.getAsObject",
+          "lineNumber": 51
+        },
+        {
+          "caller": "all",
+          "callee": "stmt.free",
+          "lineNumber": 52
+        },
+        {
+          "caller": "transaction",
+          "callee": "self._db.run",
+          "lineNumber": 61
+        },
+        {
+          "caller": "transaction",
+          "callee": "fn",
+          "lineNumber": 63
+        },
+        {
+          "caller": "transaction",
+          "callee": "self._db.run",
+          "lineNumber": 64
+        },
+        {
+          "caller": "transaction",
+          "callee": "self._save",
+          "lineNumber": 65
+        },
+        {
+          "caller": "transaction",
+          "callee": "self._db.run",
+          "lineNumber": 68
+        },
+        {
+          "caller": "_save",
+          "callee": "this._db.export",
+          "lineNumber": 75
+        },
+        {
+          "caller": "_save",
+          "callee": "fs.writeFileSync",
+          "lineNumber": 76
+        },
+        {
+          "caller": "_save",
+          "callee": "Buffer.from",
+          "lineNumber": 76
+        },
+        {
+          "caller": "initDB",
+          "callee": "initSqlJs",
+          "lineNumber": 81
+        },
+        {
+          "caller": "initDB",
+          "callee": "fs.existsSync",
+          "lineNumber": 84
+        },
+        {
+          "caller": "initDB",
+          "callee": "fs.readFileSync",
+          "lineNumber": 85
+        },
+        {
+          "caller": "initDB",
+          "callee": "_db.exec",
+          "lineNumber": 94
+        },
+        {
+          "caller": "initDB",
+          "callee": "_db.prepare('SELECT COUNT(*) as c FROM users').get",
+          "lineNumber": 144
+        },
+        {
+          "caller": "initDB",
+          "callee": "_db.prepare",
+          "lineNumber": 144
+        },
+        {
+          "caller": "initDB",
+          "callee": "require",
+          "lineNumber": 146
+        },
+        {
+          "caller": "initDB",
+          "callee": "require",
+          "lineNumber": 147
+        },
+        {
+          "caller": "initDB",
+          "callee": "uuidv4",
+          "lineNumber": 149
+        },
+        {
+          "caller": "initDB",
+          "callee": "uuidv4",
+          "lineNumber": 150
+        },
+        {
+          "caller": "initDB",
+          "callee": "bcrypt.hashSync",
+          "lineNumber": 151
+        },
+        {
+          "caller": "initDB",
+          "callee": "bcrypt.hashSync",
+          "lineNumber": 152
+        },
+        {
+          "caller": "initDB",
+          "callee": "_db.prepare('INSERT INTO users (id,username,email,password_hash,role) VALUES (?,?,?,?,?)').run",
+          "lineNumber": 154
+        },
+        {
+          "caller": "initDB",
+          "callee": "_db.prepare",
+          "lineNumber": 154
+        },
+        {
+          "caller": "initDB",
+          "callee": "_db.prepare('INSERT INTO users (id,username,email,password_hash,role) VALUES (?,?,?,?,?)').run",
+          "lineNumber": 155
+        },
+        {
+          "caller": "initDB",
+          "callee": "_db.prepare",
+          "lineNumber": 155
+        },
+        {
+          "caller": "initDB",
+          "callee": "_db.prepare('INSERT INTO places (id,name,description,location,category,guide_id) VALUES (?,?,?,?,?,?)')\n        .run",
+          "lineNumber": 164
+        },
+        {
+          "caller": "initDB",
+          "callee": "_db.prepare",
+          "lineNumber": 164
+        },
+        {
+          "caller": "initDB",
+          "callee": "uuidv4",
+          "lineNumber": 165
+        },
+        {
+          "caller": "initDB",
+          "callee": "console.log",
+          "lineNumber": 168
+        },
+        {
+          "caller": "initDB",
+          "callee": "console.log",
+          "lineNumber": 171
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "server/middleware/auth.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 69,
+      "nonEmptyLines": 59,
+      "functions": [
+        {
+          "name": "authenticate",
+          "startLine": 9,
+          "endLine": 31,
+          "params": [
+            "req",
+            "res",
+            "next"
+          ]
+        },
+        {
+          "name": "requireRole",
+          "startLine": 36,
+          "endLine": 46,
+          "params": [
+            "...roles"
+          ]
+        },
+        {
+          "name": "optionalAuth",
+          "startLine": 51,
+          "endLine": 67,
+          "params": [
+            "req",
+            "res",
+            "next"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "authenticate",
+          "callee": "authHeader.split",
+          "lineNumber": 11
+        },
+        {
+          "caller": "authenticate",
+          "callee": "res.status(401).json",
+          "lineNumber": 14
+        },
+        {
+          "caller": "authenticate",
+          "callee": "res.status",
+          "lineNumber": 14
+        },
+        {
+          "caller": "authenticate",
+          "callee": "getDB",
+          "lineNumber": 17
+        },
+        {
+          "caller": "authenticate",
+          "callee": "db.prepare('SELECT token FROM blacklisted_tokens WHERE token = ?').get",
+          "lineNumber": 18
+        },
+        {
+          "caller": "authenticate",
+          "callee": "db.prepare",
+          "lineNumber": 18
+        },
+        {
+          "caller": "authenticate",
+          "callee": "res.status(401).json",
+          "lineNumber": 20
+        },
+        {
+          "caller": "authenticate",
+          "callee": "res.status",
+          "lineNumber": 20
+        },
+        {
+          "caller": "authenticate",
+          "callee": "jwt.verify",
+          "lineNumber": 24
+        },
+        {
+          "caller": "authenticate",
+          "callee": "next",
+          "lineNumber": 27
+        },
+        {
+          "caller": "authenticate",
+          "callee": "res.status(403).json",
+          "lineNumber": 29
+        },
+        {
+          "caller": "authenticate",
+          "callee": "res.status",
+          "lineNumber": 29
+        },
+        {
+          "caller": "requireRole",
+          "callee": "res.status(401).json",
+          "lineNumber": 39
+        },
+        {
+          "caller": "requireRole",
+          "callee": "res.status",
+          "lineNumber": 39
+        },
+        {
+          "caller": "requireRole",
+          "callee": "roles.includes",
+          "lineNumber": 41
+        },
+        {
+          "caller": "requireRole",
+          "callee": "res.status(403).json",
+          "lineNumber": 42
+        },
+        {
+          "caller": "requireRole",
+          "callee": "res.status",
+          "lineNumber": 42
+        },
+        {
+          "caller": "requireRole",
+          "callee": "roles.join",
+          "lineNumber": 42
+        },
+        {
+          "caller": "requireRole",
+          "callee": "next",
+          "lineNumber": 44
+        },
+        {
+          "caller": "optionalAuth",
+          "callee": "authHeader.split",
+          "lineNumber": 53
+        },
+        {
+          "caller": "optionalAuth",
+          "callee": "next",
+          "lineNumber": 55
+        },
+        {
+          "caller": "optionalAuth",
+          "callee": "getDB",
+          "lineNumber": 58
+        },
+        {
+          "caller": "optionalAuth",
+          "callee": "db.prepare('SELECT token FROM blacklisted_tokens WHERE token = ?').get",
+          "lineNumber": 59
+        },
+        {
+          "caller": "optionalAuth",
+          "callee": "db.prepare",
+          "lineNumber": 59
+        },
+        {
+          "caller": "optionalAuth",
+          "callee": "next",
+          "lineNumber": 60
+        },
+        {
+          "caller": "optionalAuth",
+          "callee": "jwt.verify",
+          "lineNumber": 61
+        },
+        {
+          "caller": "optionalAuth",
+          "callee": "next",
+          "lineNumber": 66
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "server/routes/auth.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 89,
+      "nonEmptyLines": 76,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "server/routes/comments.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 80,
+      "nonEmptyLines": 64,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "server/routes/places.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 197,
+      "nonEmptyLines": 167,
+      "functions": [
+        {
+          "name": "fileFilter",
+          "startLine": 21,
+          "endLine": 25,
+          "params": [
+            "req",
+            "file",
+            "cb"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "fileFilter",
+          "callee": "allowed.includes",
+          "lineNumber": 23
+        },
+        {
+          "caller": "fileFilter",
+          "callee": "path.extname(file.originalname).toLowerCase",
+          "lineNumber": 23
+        },
+        {
+          "caller": "fileFilter",
+          "callee": "path.extname",
+          "lineNumber": 23
+        },
+        {
+          "caller": "fileFilter",
+          "callee": "cb",
+          "lineNumber": 23
+        },
+        {
+          "caller": "fileFilter",
+          "callee": "cb",
+          "lineNumber": 24
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "server/server.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 60,
+      "nonEmptyLines": 49,
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}
