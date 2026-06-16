@@ -40,7 +40,7 @@ const Places = {
       return;
     }
 
-    container.innerHTML = res.data.places.map(p => this.renderCard(p)).join('');
+    container.innerHTML = res.data.places.map((p, i) => this.renderCard(p, i, true)).join('');
     this.bindCardClicks(container);
     this.updateStats(res.data.pagination.total);
   },
@@ -101,7 +101,7 @@ const Places = {
     container.innerHTML = `<div class="pagination">${html}</div>`;
   },
 
-  renderCard(place, index = 0) {
+  renderCard(place, index = 0, isBento = false) {
     const stars = this.renderStars(place.avg_rating);
     const emoji = this.categoryEmoji[place.category] || '🌍';
     const fallbacks = [
@@ -120,9 +120,11 @@ const Places = {
 
     // Asymmetrical classes for the bento grid pattern
     let bentoClass = 'bento-card';
-    if (index % 7 === 0) bentoClass += ' large';
-    else if (index % 7 === 3) bentoClass += ' wide';
-    else if (index % 7 === 5) bentoClass += ' tall';
+    if (isBento) {
+      if (index % 7 === 0) bentoClass += ' large';
+      else if (index % 7 === 3) bentoClass += ' wide';
+      else if (index % 7 === 5) bentoClass += ' tall';
+    }
 
     return `
       <article class="${bentoClass} bezel spotlight reveal-up" data-id="${place.id}" role="button" tabindex="0">
@@ -149,7 +151,8 @@ const Places = {
 
   bindCardClicks(container) {
     container.querySelectorAll('.place-card').forEach(card => {
-      const navigate = () => App.navigate('detail', { id: card.dataset.id });
+      const id = card.closest('article').dataset.id;
+      const navigate = () => App.navigate('detail', { id });
       card.addEventListener('click', navigate);
       card.addEventListener('keydown', e => e.key === 'Enter' && navigate());
     });
