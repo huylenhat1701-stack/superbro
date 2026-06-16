@@ -8,6 +8,7 @@
   <meta property="og:title" content="TravelSuite — Discover Amazing Places">
   <meta property="og:description" content="Find your next adventure. Search places, read reviews, and share your travel experiences.">
   <link rel="stylesheet" href="/css/style.css">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌏</text></svg>">
 </head>
 <body>
@@ -15,7 +16,7 @@
 <!-- ═══════════════════════════════ NAVBAR ═══════════════════════════════ -->
 <nav id="navbar">
   <div class="nav-brand">
-    <div class="logo-icon">🌏</div>
+    <div class="logo-icon"><i class="ph-bold ph-globe-hemisphere-west"></i></div>
     <span>TravelSuite</span>
   </div>
 
@@ -99,7 +100,6 @@
   <section style="padding-top:80px">
     <div class="container">
       <div class="section-header">
-        <div class="section-tag">Featured</div>
         <h2 class="section-title">Trending Destinations</h2>
         <p class="section-subtitle">Explore the most popular places shared by our expert guides</p>
       </div>
@@ -112,33 +112,104 @@
     </div>
   </section>
 
-  <!-- How It Works -->
-  <section style="background:var(--bg-card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <!-- Platform Features (Bento Grid) -->
+  <section id="features">
     <div class="container">
-      <div class="section-header">
-        <div class="section-tag">How It Works</div>
-        <h2 class="section-title">Start Your Journey</h2>
+      <div class="section-header reveal-up">
+        <h2 class="section-title">Built for Explorers</h2>
+        <p class="section-subtitle">Experience travel through a lens of authenticity and expertise.</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px">
-        <div style="text-align:center;padding:28px 20px">
-          <div style="font-size:3rem;margin-bottom:16px">📝</div>
-          <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:8px">1. Register</h3>
-          <p style="color:var(--text-muted);font-size:0.9rem">Create a free account as a Guide or Traveller to unlock full features.</p>
+
+      <div class="bento-grid">
+        <div class="bento-item bento-hero glass spotlight reveal-up">
+          <div class="bento-content">
+            <i class="ph ph-shield-check"></i>
+            <h3>Expert Verification</h3>
+            <p>Every guide is vetted to ensure you get the most accurate, high-quality information for your next journey.</p>
+          </div>
+          <div class="bento-visual" style="background: linear-gradient(to bottom right, var(--primary-dark), transparent)"></div>
         </div>
-        <div style="text-align:center;padding:28px 20px">
-          <div style="font-size:3rem;margin-bottom:16px">🗺️</div>
-          <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:8px">2. Explore</h3>
-          <p style="color:var(--text-muted);font-size:0.9rem">Search and discover amazing destinations added by expert local guides.</p>
+        
+        <div class="bento-item glass spotlight reveal-up">
+          <div class="bento-content">
+            <i class="ph ph-map-pin"></i>
+            <h3>Hidden Gems</h3>
+            <p>Find locations that aren't on any map, curated by locals who know the land.</p>
+          </div>
         </div>
-        <div style="text-align:center;padding:28px 20px">
-          <div style="font-size:3rem;margin-bottom:16px">📸</div>
-          <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:8px">3. Share</h3>
-          <p style="color:var(--text-muted);font-size:0.9rem">Guides add places with photos & info. Travelers rate and review.</p>
+
+        <div class="bento-item glass spotlight reveal-up">
+          <div class="bento-content">
+            <i class="ph ph-users-three"></i>
+            <h3>Real Reviews</h3>
+            <p>Authentic feedback from a community of passionate travelers.</p>
+          </div>
         </div>
-        <div style="text-align:center;padding:28px 20px">
-          <div style="font-size:3rem;margin-bottom:16px">⭐</div>
-          <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:8px">4. Review</h3>
-          <p style="color:var(--text-muted);font-size:0.9rem">Leave ratings and comments to help other travelers find the best spots.</p>
+
+        <div class="bento-item bento-wide glass spotlight reveal-up" style="background: url('https://picsum.photos/seed/travel-landscape/800/400') center/cover">
+          <div class="bento-overlay"></div>
+          <div class="bento-content relative z-10">
+            <i class="ph ph-image-square"></i>
+            <h3>Stunning Galleries</h3>
+            <p>High-resolution visual storytelling for every destination.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how-it-works" style="overflow:hidden">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <div class="section-tag">The Process</div>
+        <h2 class="section-title">Start Your Journey</h2>
+        <p class="section-subtitle">Unlocking the world's most breathtaking destinations is simple and rewarding.</p>
+      </div>
+
+      <div class="process-steps">
+        <!-- Step 1 -->
+        <div class="process-row reveal-up">
+          <div class="process-content">
+            <div class="process-number">01</div>
+            <h3 class="process-h3">Join the Community</h3>
+            <p class="process-p">Create your free account as a <strong>Guide</strong> to share hidden gems, or a <strong>Traveller</strong> to explore and review. Your journey starts with a single click.</p>
+            <button class="btn btn-ghost btn-sm" onclick="UI.openModal('modal-auth');document.getElementById('tab-register').click()">Create Account →</button>
+          </div>
+          <div class="process-visual">
+            <div class="visual-box glass spotlight">
+              <i class="ph ph-user-plus"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="process-row reverse reveal-up">
+          <div class="process-content">
+            <div class="process-number">02</div>
+            <h3 class="process-h3">Explore the Unseen</h3>
+            <p class="process-p">Use our powerful search to find destinations curated by local experts. From mountain peaks to hidden city cafes, discover places you won't find in typical brochures.</p>
+            <button class="btn btn-ghost btn-sm" onclick="App.navigate('search')">Start Exploring →</button>
+          </div>
+          <div class="process-visual">
+            <div class="visual-box glass spotlight">
+              <i class="ph ph-map-trifold"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="process-row reveal-up">
+          <div class="process-content">
+            <div class="process-number">03</div>
+            <h3 class="process-h3">Share & Contribute</h3>
+            <p class="process-p">Guides bring places to life with high-quality photos and insider tips. Every shared location helps our community find their next unforgettable adventure.</p>
+          </div>
+          <div class="process-visual">
+            <div class="visual-box glass spotlight">
+              <i class="ph ph-camera"></i>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -292,8 +363,8 @@
           <label class="form-label" for="reg-role">I am a...</label>
           <select id="reg-role" class="form-input" required>
             <option value="">Select your role</option>
-            <option value="traveller">🧳 Traveller — I want to explore and review places</option>
-            <option value="guide">🗺️ Guide — I want to share and post places</option>
+            <option value="traveller">🧳 Traveller. I want to explore and review places</option>
+            <option value="guide">🗺️ Guide. I want to share and post places</option>
           </select>
         </div>
         <button type="submit" class="btn btn-primary btn-full" id="btn-register">Create Account</button>
@@ -327,7 +398,7 @@
       </div>
       <div class="form-group">
         <label class="form-label" for="place-description">Description</label>
-        <textarea id="place-description" class="form-input" rows="4" placeholder="Describe this place — what makes it special?"></textarea>
+        <textarea id="place-description" class="form-input" rows="4" placeholder="Describe this place. What makes it special?"></textarea>
       </div>
       <div style="display:flex;gap:12px;justify-content:flex-end">
         <button type="button" class="btn btn-ghost modal-close">Cancel</button>
@@ -379,4 +450,6 @@
 <script src="/js/app.js"></script>
 
 </body>
+</html>
+
 </html>

@@ -64,6 +64,39 @@ const UI = {
   }
 };
 
+// ─── Motion Helpers ──────────────────────────────────────────
+const Motion = {
+  reveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
+  },
+
+  trackSpotlights() {
+    document.addEventListener('mousemove', e => {
+      document.querySelectorAll('.spotlight').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        el.style.setProperty('--mouse-x', `${x}px`);
+        el.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+  },
+
+  init() {
+    this.reveal();
+    this.trackSpotlights();
+  }
+};
+
 // ─── SPA Router ──────────────────────────────────────────────
 const App = {
   currentPage: 'home',
@@ -116,12 +149,16 @@ const App = {
       document.getElementById('dash-role').textContent = user.role.charAt(0).toUpperCase() + user.role.slice(1) + ' Account';
       Places.loadDashboard();
     }
+
+    // Refresh motion animations for dynamic content
+    setTimeout(() => Motion.reveal(), 500);
   },
 
   async init() {
     Auth.init();
     await Places.loadCategories();
     UI.updateNavbar();
+    Motion.init();
     this.bindEvents();
     this.navigate('home');
   },

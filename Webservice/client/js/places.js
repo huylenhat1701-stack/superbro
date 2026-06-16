@@ -16,6 +16,12 @@ const Places = {
     'Food': '🍜', 'Culture': '🎭', 'Other': '🌍'
   },
 
+  categoryIcon: {
+    'Heritage': 'ph-bank', 'Nature': 'ph-leaf', 'Adventure': 'ph-mountains',
+    'Beach': 'ph-waves', 'City': 'ph-buildings', 'Mountain': 'ph-terrain',
+    'Food': 'ph-fork-knife', 'Culture': 'ph-mask-happy', 'Other': 'ph-globe'
+  },
+
   async loadCategories() {
     const res = await Api.places.categories();
     if (res.success) this._categories = res.data.categories;
@@ -104,7 +110,7 @@ const Places = {
       : `<div class="place-card-placeholder">${emoji}</div>`;
 
     return `
-      <article class="place-card" data-id="${place.id}" role="button" tabindex="0">
+      <article class="place-card spotlight reveal-up" data-id="${place.id}" role="button" tabindex="0">
         <div class="place-card-img">
           ${imgHtml}
           <span class="place-card-category">${emoji} ${place.category}</span>
@@ -368,7 +374,7 @@ const Places = {
     const res = await Api.places.list({ guide_id: user.id, limit: 100 });
     const places = res.success ? res.data.places : [];
     const totalRatings = places.reduce((s, p) => s + (p.rating_count || 0), 0);
-    const avgRating = places.length ? (places.reduce((s, p) => s + (p.avg_rating || 0), 0) / places.length).toFixed(1) : '—';
+    const avgRating = places.length ? (places.reduce((s, p) => s + (p.avg_rating || 0), 0) / places.length).toFixed(1) : '0.0';
 
     const dStat = document.getElementById('dash-stat-places');
     const rStat = document.getElementById('dash-stat-reviews');
