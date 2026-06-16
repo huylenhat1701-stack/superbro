@@ -2,6 +2,33 @@
 // App — SPA Router, UI Helpers, and Main Entry Point
 // ═══════════════════════════════════════════════════════════════
 
+// ─── Theme Management ────────────────────────────────────────
+const Theme = {
+  current: 'dark',
+
+  init() {
+    this.current = localStorage.getItem('theme') || 'dark';
+    this.applyTheme(this.current);
+
+    document.getElementById('theme-toggle')?.addEventListener('click', () => {
+      this.current = this.current === 'dark' ? 'light' : 'dark';
+      this.applyTheme(this.current);
+      localStorage.setItem('theme', this.current);
+    });
+  },
+
+  applyTheme(theme) {
+    const icon = document.getElementById('theme-icon');
+    if (theme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+      if (icon) icon.className = 'ph ph-sun';
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      if (icon) icon.className = 'ph ph-moon';
+    }
+  }
+};
+
 // ─── UI Helpers ──────────────────────────────────────────────
 const UI = {
   showToast(msg, type = 'info') {
@@ -168,6 +195,7 @@ const App = {
   },
 
   async init() {
+    Theme.init();
     Auth.init();
     await Places.loadCategories();
     UI.updateNavbar();

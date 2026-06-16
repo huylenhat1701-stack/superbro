@@ -249,7 +249,7 @@ const Places = {
               </h2>
 
               ${Auth.isTraveller() ? `
-              <div style="background:var(--bg-card2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;margin-bottom:28px">
+              <div style="background:var(--bg-card2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;margin-bottom:28px;transition:var(--transition)">
                 <h3 style="font-size:1rem;font-weight:600;margin-bottom:16px">Leave a Review</h3>
                 <form id="form-comment" onsubmit="Places.submitComment(event, '${place.id}')">
                   <div class="form-group">
@@ -269,14 +269,14 @@ const Places = {
                   <button type="submit" class="btn btn-primary" id="btn-comment">Submit Review</button>
                 </form>
               </div>` : Auth.isLoggedIn() ? '' : `
-              <div style="background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:var(--radius-md);padding:20px;margin-bottom:24px;text-align:center">
+              <div style="background:var(--bg-bezel);border:1px solid var(--border-hair);border-radius:var(--radius-md);padding:20px;margin-bottom:24px;text-align:center;transition:var(--transition)">
                 <p style="color:var(--text-muted);margin-bottom:12px">Sign in as a Traveller to leave a review</p>
                 <button class="btn btn-primary btn-sm" onclick="UI.openModal('modal-auth')">Login / Register</button>
               </div>`}
 
               <div id="comments-list">
                 ${comments.length ? comments.map(c => this.renderComment(c)).join('') :
-                  `<div class="empty-state" style="padding:40px 0">
+                  `<div class="empty-state" style="padding:40px 0;transition:var(--transition)">
                     <div class="empty-state-icon">💬</div>
                     <div class="empty-state-title">No reviews yet</div>
                     <div class="empty-state-text">Be the first to review this place!</div>
@@ -287,7 +287,7 @@ const Places = {
 
           <!-- Sidebar -->
           <div>
-            <div style="background:var(--bg-card2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;position:sticky;top:80px">
+            <div style="background:var(--bg-card2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;position:sticky;top:80px;transition:var(--transition)">
               <h3 style="font-weight:700;margin-bottom:20px">Place Info</h3>
               <div style="display:flex;flex-direction:column;gap:16px">
                 <div>

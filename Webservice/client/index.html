@@ -27,7 +27,10 @@
     <a href="#" data-page="search" id="nav-search">Explore</a>
     <button id="nav-dashboard" class="hide-mobile" style="display:none">Dashboard</button>
     
-    <div id="nav-auth" style="display:flex;gap:4px">
+    <div id="nav-auth" style="display:flex;gap:4px;align-items:center">
+      <button id="theme-toggle" style="background:var(--bg-card2); color:var(--text); border:1px solid var(--border-hair); width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:var(--transition); margin-right:8px" aria-label="Toggle Theme">
+        <i class="ph ph-moon" id="theme-icon" style="font-size: 1.1rem"></i>
+      </button>
       <button id="nav-login" style="font-weight:700; color:var(--primary-light)">Login</button>
       <button id="nav-register" class="btn-island" style="padding: 6px 6px 6px 16px; font-size:0.8rem">
         Join
@@ -69,7 +72,7 @@
           <div class="bezel-core">
             <div class="hero-search" style="border:none; box-shadow:none; background:transparent">
               <input type="text" id="hero-search-input" placeholder="Search destinations..." aria-label="Search places">
-              <select id="hero-category-select" class="hide-mobile" aria-label="Filter by category" style="border:none; background:rgba(255,255,255,0.05)">
+              <select id="hero-category-select" class="hide-mobile" aria-label="Filter by category" style="border:none; background:var(--bg-bezel); transition:var(--transition)">
                 <option value="">All Categories</option>
                 <option>Heritage</option>
                 <option>Nature</option>
